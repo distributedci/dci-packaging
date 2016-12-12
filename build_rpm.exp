@@ -1,0 +1,12 @@
+#!/usr/bin/expect
+
+set timeout 3600
+set path [lindex $argv 0];
+set project [lindex $argv 1];
+
+spawn ./build_rpm.sh $path $project
+expect "Enter pass phrase: "
+send -- "\r"
+expect "Enter pass phrase: "
+send -- "\r"
+expect eof
