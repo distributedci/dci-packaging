@@ -128,7 +128,7 @@ EOF
     # Build the RPMs in a clean chroot environment with mock to detect missing
     # BuildRequires lines.
     mkdir -p development
-    mock -r ${HOME}/.mock/${arch}-with-extras.cfg rebuild --resultdir=development/${rpath} ${HOME}/rpmbuild/SRPMS/${PROJ_NAME}*
+    mock -r ${HOME}/.mock/${arch}-with-extras.cfg rebuild --resultdir=current/${rpath} ${HOME}/rpmbuild/SRPMS/${PROJ_NAME}*
 done
 
 popd
