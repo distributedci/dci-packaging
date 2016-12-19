@@ -7,6 +7,7 @@ fi
 
 PATH_TO_PROJ=$1
 PROJ_NAME=$2
+WORKSPACE='current'
 SUPPORTED_DISTRIBUTIONS='fedora-25-x86_64 epel-7-x86_64'
 
 pushd ${PATH_TO_PROJ}
@@ -106,12 +107,20 @@ fi
 if [[ -e setup.py ]]; then
     DATE=$(date +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
-    sed -i "s,__version__ = '\(.*\)',__version__ = '0.0.${DATE}git${SHA}'," dci/version.py
+    WORKSPACE='development'
+    version_py=$(find . -maxdepth 2 -name "version.py")
+    if [[ -e $version_py ]]; then
+        sed -i "s,__version__ = '\(.*\)',__version__ = '0.0.${DATE}git${SHA}'," $version_py
+    else
+        sed -i "s/version='.*'/version='0.0.${DATE}git${SHA}'/" setup.py
+    fi
     python setup.py sdist
     cp -v dist/* ${HOME}/rpmbuild/SOURCES/
+    if [[ -d contrib/systemd ]]; then
+        cp -v contrib/systemd/* ${HOME}/rpmbuild/SOURCES/
+    fi
     sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
 fi
-
 
 rpmbuild -bs ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
 
@@ -130,7 +139,7 @@ EOF
 
     # Build the RPMs in a clean chroot environment with mock to detect missing
     # BuildRequires lines.
-    mock -r ${HOME}/.mock/${arch}-with-extras.cfg rebuild --resultdir=current/${rpath} ${HOME}/rpmbuild/SRPMS/${PROJ_NAME}*
+    mock -r ${HOME}/.mock/${arch}-with-extras.cfg rebuild --resultdir=${WORKSPACE}/${rpath} ${HOME}/rpmbuild/SRPMS/${PROJ_NAME}*
 done
 
 popd
