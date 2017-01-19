@@ -120,6 +120,12 @@ if [[ -e setup.py ]]; then
         cp -v contrib/systemd/* ${HOME}/rpmbuild/SOURCES/
     fi
     sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
+elif [[ "$PROJ_NAME" == "dci-ansible" ]]; then
+    DATE=$(date +%Y%m%d%H%M)
+    SHA=$(git rev-parse HEAD | cut -c1-8)
+    WORKSPACE='development'
+    git archive HEAD --format=tgz --output=${HOME}/rpmbuild/SOURCES/${PROJ_NAME}-0.0.${DATE}git${SHA}.tar.gz
+    sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
 fi
 
 rpmbuild -bs ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
