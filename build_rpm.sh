@@ -9,7 +9,7 @@ PATH_TO_PROJ=$1
 PROJ_NAME=$2
 WORKSPACE='current'
 if [[ "$PROJ_NAME" == "dci-agent" ]] || [[ "$PROJ_NAME" == "python-tripleo-helper" ]]; then
-    SUPPORTED_DISTRIBUTIONS='epel-7-x86_64'
+    SUPPORTED_DISTRIBUTIONS='epel-7-x86_64 epel-7-x86_64'
 else
     SUPPORTED_DISTRIBUTIONS='fedora-25-x86_64 epel-7-x86_64'
 fi
