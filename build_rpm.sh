@@ -160,6 +160,11 @@ ${repo_conf[misc]}
 ${repo_conf[project_specific]}
 EOF
 
+    # Note: for the dci-control-server project
+    if [[ "$PROJ_NAME" == "dci-control-server" ]]; then
+        PROJ_NAME=dci
+    fi
+
     # Build the RPMs in a clean chroot environment with mock to detect missing
     # BuildRequires lines.
     mock -r ${HOME}/.mock/${arch}-with-extras.cfg rebuild --resultdir=${WORKSPACE}/${rpath} ${HOME}/rpmbuild/SRPMS/${PROJ_NAME}*
