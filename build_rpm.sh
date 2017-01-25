@@ -94,6 +94,18 @@ config_opts["files"]["etc/hosts"] = """
 config_opts["nosync"] = True
 '
 
+# Project specific settings. Needs to be overrided
+repo_conf["project_specific"]='
+'
+
+# Note: Need to contact the npm registry to retrieve
+#       the npm modules.
+if [[ "$PROJ_NAME" == "dci-ui" ]]; then
+repo_conf["project_specific"]='
+config_opts["use_host_resolv"] = True
+'
+fi
+
 # Create the proper filesystem hierarchy to proceed with srpm creatioon
 #
 rm -rf ${HOME}/rpmbuild && mock --clean
@@ -120,7 +132,7 @@ if [[ -e setup.py ]]; then
         cp -v contrib/systemd/* ${HOME}/rpmbuild/SOURCES/
     fi
     sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
-elif [[ "$PROJ_NAME" == "dci-ansible" ]]; then
+elif [[ "$PROJ_NAME" == "dci-ansible" ]] || [[ "$PROJ_NAME" == "dci-ui" ]]; then
     DATE=$(date +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
     WORKSPACE='development'
@@ -141,6 +153,7 @@ ${repo_conf[${arch}]}
 """
 ${repo_conf[gpg_signature]}
 ${repo_conf[misc]}
+${repo_conf[project_specific]}
 EOF
 
     # Build the RPMs in a clean chroot environment with mock to detect missing
