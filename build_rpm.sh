@@ -50,7 +50,7 @@ baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-mitaka/
 gpgcheck=1
 enabled=1
 gpgkey=https://raw.githubusercontent.com/openstack/puppet-openstack_extras/91fac8eab81d0ad071130887d72338a82c06a7f4/files/RPM-GPG-KEY-CentOS-SIG-Cloud
-includepkgs=python-pifpaf
+includepkgs=python2-pifpaf
 '
 
 # CentOS third-party repositories needed
