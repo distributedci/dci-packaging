@@ -43,6 +43,14 @@ baseurl=http://packages.distributed-ci.io/repos/development/fedora/25/x86_64/
 gpgcheck=1
 gpgkey=https://packages.distributed-ci.io/RPM-GPG-KEY-distributedci
 enabled=1
+
+[openstack-mitaka]
+name=OpenStack Mitaka Repository
+baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-mitaka/
+gpgcheck=1
+enabled=1
+gpgkey=https://raw.githubusercontent.com/openstack/puppet-openstack_extras/91fac8eab81d0ad071130887d72338a82c06a7f4/files/RPM-GPG-KEY-CentOS-SIG-Cloud
+includepkgs=python-pifpaf
 '
 
 # CentOS third-party repositories needed
@@ -93,7 +101,7 @@ repo_conf["project_specific"]='
 
 # Note: Need to contact the npm registry to retrieve
 #       the npm modules.
-if [[ "$PROJ_NAME" == "dci-ui" ]] || [[ "$PROJ_NAME" == "dci-agent" ]] || [[ "$PROJ_NAME" == "python-tripleo-helper" ]]; then
+if [[ "$PROJ_NAME" == "dci-ui" ]]; then
 repo_conf["project_specific"]='
 config_opts["use_host_resolv"] = True
 '
