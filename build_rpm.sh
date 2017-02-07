@@ -127,7 +127,7 @@ fi
 if [[ -n "$PATH_TO_REPO" ]]; then
 repo_conf["project_specific"]='
 config_opts["bind_mount_enable"] = True
-config_opts["bind_mount_opts"]["dirs"].append(${PATH_TO_REPO}, "/tmp/dependency_repo")
+config_opts["bind_mount_opts"]["dirs"].append('$PATH_TO_REPO', "/tmp/dependency_repo")
 '
 fi
 
