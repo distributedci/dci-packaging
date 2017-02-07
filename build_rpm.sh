@@ -1,12 +1,13 @@
-#!/bin/bash
+#!/bin/bash -x
 
-if [[ "$#" -ne 2 ]]; then
-    echo "USAGE: ./build_rpm.sh <PATH_TO_PROJ> <PROJ_NAME>"
+if [[ "$#" -lt 2 ]]; then
+    echo "USAGE: ./build_rpm.sh <PATH_TO_PROJ> <PROJ_NAME> [<PATH_TO_REPO>]"
     exit 1
 fi
 
 PATH_TO_PROJ=$1
 PROJ_NAME=$2
+PATH_TO_REPO=$3
 WORKSPACE='current'
 SUPPORTED_DISTRIBUTIONS='fedora-25-x86_64 epel-7-x86_64'
 
@@ -30,6 +31,13 @@ config_opts["plugin_conf"]["sign_opts"]["opts"] = "--addsign %(rpms)s"
 # Fedora third-party repositories needed
 #
 repo_conf["fedora-25-x86_64"]='
+[dci-deps-ci]
+name=Distributed CI - Packaged build during CI
+baseurl=file:///tmp/dependency_repo/development/fedora/25/x86_64/
+gpgcheck=0
+enabled=1
+skip_if_unavailable=1
+
 [dci]
 name=Distributed CI - Fedora
 baseurl=https://packages.distributed-ci.io/repos/current/fedora/25/x86_64/
@@ -56,6 +64,13 @@ includepkgs=python2-pifpaf
 # CentOS third-party repositories needed
 #
 repo_conf["epel-7-x86_64"]='
+[dci-deps-ci]
+name=Distributed CI - Packaged build during CI
+baseurl=file:///tmp/dependency_repo/development/el/25/x86_64/
+gpgcheck=0
+enabled=1
+skip_if_unavailable=1
+
 [elasticsearch-2.x]
 name="Elasticsearch repository for 2.x packages"
 baseurl=http://packages.elastic.co/elasticsearch/2.x/centos
@@ -104,6 +119,13 @@ repo_conf["project_specific"]='
 if [[ "$PROJ_NAME" == "dci-ui" ]]; then
 repo_conf["project_specific"]='
 config_opts["use_host_resolv"] = True
+'
+fi
+
+if [[ -n "$PATH_TO_REPO" ]]; then
+repo_conf["project_specific"]='
+config_opts["bind_mount_enable"] = True
+config_opts["bind_mount_opts"]["dirs"].append(${PATH_TO_REPO}, "/tmp/dependency_repo")
 '
 fi
 
