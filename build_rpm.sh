@@ -1,12 +1,13 @@
 #!/bin/bash
 
-if [[ "$#" -ne 2 ]]; then
-    echo "USAGE: ./build_rpm.sh <PATH_TO_PROJ> <PROJ_NAME>"
+if [[ "$#" -ne 3 ]]; then
+    echo "USAGE: ./build_rpm.sh <PATH_TO_PROJ> <PROJ_NAME> <PATH_TO_REPO_TO_MOUNT>"
     exit 1
 fi
 
 PATH_TO_PROJ=$1
 PROJ_NAME=$2
+PATH_TO_REPO_TO_MOUNT=$3
 WORKSPACE='current'
 SUPPORTED_DISTRIBUTIONS='fedora-25-x86_64 epel-7-x86_64'
 
@@ -88,6 +89,8 @@ gpgkey=https://raw.githubusercontent.com/openstack/puppet-openstack_extras/91fac
 # MISC mock configuration
 #
 repo_conf["misc"]='
+config_opts["bind_mount_enable"] = True
+config_opts["bind_mount_opts"]["dirs"].append($PATH_TO_REPO, "/tmp/dependency_repo")
 config_opts["use_host_resolv"] = False
 config_opts["files"]["etc/hosts"] = """
 127.0.0.1 pypi.python.org
