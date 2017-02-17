@@ -13,8 +13,6 @@ SUPPORTED_DISTRIBUTIONS='fedora-25-x86_64 epel-7-x86_64'
 
 pushd ${PATH_TO_PROJ}
 
-echo "PATH_TO_REPO: ${PATH_TO_REPO}"
-
 # Configure rpmmacros to enable signing packages
 #
 echo '%_signature gpg' >> ~/.rpmmacros
@@ -187,9 +185,6 @@ EOF
     if [[ "$PROJ_NAME" == "dci-control-server" ]]; then
         PROJ_NAME=dci
     fi
-
-    ls -lR /tmp/dependency_repo
-    cat ${HOME}/.mock/${arch}-with-extras.cfg
 
     # Build the RPMs in a clean chroot environment with mock to detect missing
     # BuildRequires lines.
