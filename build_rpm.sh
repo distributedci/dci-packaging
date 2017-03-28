@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eux
 
 if [[ "$#" -lt 2 ]]; then
     echo "USAGE: ./build_rpm.sh <PATH_TO_PROJ> <PROJ_NAME> [<PATH_TO_REPO>]"
@@ -7,7 +8,11 @@ fi
 
 PATH_TO_PROJ=$1
 PROJ_NAME=$2
-PATH_TO_REPO=$3
+if [[ "$#" == 3 ]]; then
+    PATH_TO_REPO=$3
+else
+    PATH_TO_REPO=""
+fi
 WORKSPACE='current'
 SUPPORTED_DISTRIBUTIONS='fedora-25-x86_64 epel-7-x86_64'
 
