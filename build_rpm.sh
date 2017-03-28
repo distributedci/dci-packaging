@@ -146,6 +146,7 @@ if [[ "$PROJ_NAME" == "dci-gpgpubkey" ]]; then
     cp distributed-ci.pub ${HOME}/rpmbuild/SOURCES/
 fi
 
+non_py_projects=("dci-ansible", "dci-ansible-agent", "dci-ui")
 if [[ -e setup.py ]]; then
     DATE=$(date +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
@@ -162,7 +163,7 @@ if [[ -e setup.py ]]; then
         cp -v contrib/systemd/* ${HOME}/rpmbuild/SOURCES/
     fi
     sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
-elif [[ "$PROJ_NAME" == "dci-ansible" ]] || [[ "$PROJ_NAME" == "dci-ui" ]]; then
+elif [[ "${non_py_projects[@]}" =~ "${PROJ_NAME}" ]]; then
     DATE=$(date +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
     WORKSPACE='development'
