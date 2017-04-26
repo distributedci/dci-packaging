@@ -146,7 +146,7 @@ if [[ "$PROJ_NAME" == "dci-gpgpubkey" ]]; then
     cp distributed-ci.pub ${HOME}/rpmbuild/SOURCES/
 fi
 
-non_py_projects=("dci-ansible", "dci-ansible-agent", "dci-ui")
+non_py_projects=("dci-ansible", "dci-ansible-agent", "dci-ui", "ansible-role-dci-feeders")
 if [[ -e setup.py ]]; then
     DATE=$(date +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
