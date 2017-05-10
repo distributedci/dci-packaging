@@ -151,14 +151,6 @@ if [[ -e setup.py ]]; then
     DATE=$(date +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
     WORKSPACE='development'
-    version_py=$(find . -maxdepth 2 -name "version.py")
-    if [[ -e $version_py ]]; then
-        sed -i "s,__version__ = '\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\)',__version__ = '\1.\2.${DATE}git${SHA}'," $version_py
-        version=$(sed "s,.*__version__ = '\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\)',\1.\2.${DATE}git${SHA}," $version_py)
-    else
-        sed -i "s/version='\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\)'/version='\1.\2.${DATE}git${SHA}'/" setup.py
-        version=$(sed "s/.*version='\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\)'/\1.\2.${DATE}git${SHA}" setup.py)
-    fi
     python setup.py sdist
     cp -v dist/* ${HOME}/rpmbuild/SOURCES/
     if [[ -d contrib/systemd ]]; then
