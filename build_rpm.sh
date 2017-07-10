@@ -132,6 +132,7 @@ repo_conf["project_specific"]='
 if [[ "$PROJ_NAME" == "dci-ui" ]]; then
 repo_conf["project_specific"]='
 config_opts["use_host_resolv"] = True
+config_opts["rpmbuild_networking"] = True
 '
 fi
 
