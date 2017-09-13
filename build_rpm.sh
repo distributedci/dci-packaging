@@ -58,9 +58,9 @@ gpgcheck=1
 gpgkey=https://packages.distributed-ci.io/RPM-GPG-KEY-distributedci
 enabled=1
 
-[openstack-mitaka]
-name=OpenStack Mitaka Repository
-baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-mitaka/
+[openstack-pike]
+name=OpenStack Pike Repository
+baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-pike/
 gpgcheck=1
 enabled=1
 gpgkey=https://raw.githubusercontent.com/openstack/puppet-openstack_extras/91fac8eab81d0ad071130887d72338a82c06a7f4/files/RPM-GPG-KEY-CentOS-SIG-Cloud
@@ -105,9 +105,9 @@ baseurl=http://packages.distributed-ci.io/repos/extras/el/7/x86_64/
 gpgcheck=0
 enabled=1
 
-[centos-openstack-mitaka]
-name=CentOS-7 - OpenStack mitaka
-baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-mitaka/
+[centos-openstack-pike]
+name=CentOS-7 - OpenStack Pike
+baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-pike/
 gpgcheck=1
 enabled=1
 gpgkey=https://raw.githubusercontent.com/openstack/puppet-openstack_extras/91fac8eab81d0ad071130887d72338a82c06a7f4/files/RPM-GPG-KEY-CentOS-SIG-Cloud
