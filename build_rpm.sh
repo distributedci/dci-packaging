@@ -153,7 +153,7 @@ if [[ "$PROJ_NAME" == "dci-gpgpubkey" ]]; then
     cp distributed-ci.pub ${HOME}/rpmbuild/SOURCES/
 fi
 
-non_py_projects=("dci-ansible", "dci-ansible-agent", "dci-ui", "ansible-role-dci-feeders", "ansible-role-openstack-stackdump", "ansible-role-openstack-certification", "ansible-role-openstack-rally", "ansible-role-httpd")
+non_py_projects=("dci-ansible", "dci-ansible-agent", "dci-ui", "ansible-role-dci-feeders", "ansible-role-openstack-stackdump", "ansible-role-openstack-certification", "ansible-role-openstack-rally", "ansible-role-httpd", "dci-doc")
 if [[ -e setup.py ]]; then
     DATE=$(date +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
@@ -168,7 +168,13 @@ elif [[ "${non_py_projects[@]}" =~ "${PROJ_NAME}" ]]; then
     DATE=$(date +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
     WORKSPACE='development'
-    git archive HEAD --format=tgz --output=${HOME}/rpmbuild/SOURCES/${PROJ_NAME}-0.0.${DATE}git${SHA}.tar.gz
+    if [[ "$PROJ_NAME" == "dci-doc" ]]; then
+        mv docs ${PROJ_NAME}-0.0.${DATE}git${SHA}
+        tar -czvf ${PROJ_NAME}-0.0.${DATE}git${SHA}.tar.gz ${PROJ_NAME}-0.0.${DATE}git${SHA}
+    else
+        git archive HEAD --format=tgz --output=${HOME}/rpmbuild/SOURCES/${PROJ_NAME}-0.0.${DATE}git${SHA}.tar.gz
+    fi
+
     sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
 fi
 
