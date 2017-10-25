@@ -169,6 +169,7 @@ elif [[ "${non_py_projects[@]}" =~ "${PROJ_NAME}" ]]; then
     SHA=$(git rev-parse HEAD | cut -c1-8)
     WORKSPACE='development'
     if [[ "$PROJ_NAME" == "dci-doc" ]]; then
+        ./build.sh
         cp -r docs ${PROJ_NAME}-0.0.${DATE}git${SHA}
         tar -czvf ${PROJ_NAME}-0.0.${DATE}git${SHA}.tar.gz ${PROJ_NAME}-0.0.${DATE}git${SHA}
         mv ${PROJ_NAME}-0.0.${DATE}git${SHA}.tar.gz ${HOME}/rpmbuild/SOURCES/
