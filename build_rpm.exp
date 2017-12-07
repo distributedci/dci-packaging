@@ -8,6 +8,4 @@ set path_to_repo [lindex $argv 2];
 spawn ./build_rpm.sh $path $project $path_to_repo
 expect "Enter pass phrase: "
 send -- "\r"
-expect "Enter pass phrase: "
-send -- "\r"
 expect eof

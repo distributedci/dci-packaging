@@ -14,7 +14,7 @@ else
     PATH_TO_REPO=""
 fi
 WORKSPACE='current'
-SUPPORTED_DISTRIBUTIONS='fedora-26-x86_64 epel-7-x86_64'
+SUPPORTED_DISTRIBUTIONS='epel-7-x86_64'
 
 pushd ${PATH_TO_PROJ}
 
@@ -31,40 +31,6 @@ config_opts["plugin_conf"]["sign_enable"] = True
 config_opts["plugin_conf"]["sign_opts"] = {}
 config_opts["plugin_conf"]["sign_opts"]["cmd"] = "rpmsign"
 config_opts["plugin_conf"]["sign_opts"]["opts"] = "--addsign %(rpms)s"
-'
-
-# Fedora third-party repositories needed
-#
-repo_conf["fedora-26-x86_64"]='
-[dci-deps-ci]
-name=Distributed CI - Packaged build during CI
-baseurl=file:///tmp/dependency_repo/development/fedora/26/x86_64/
-gpgcheck=0
-enabled=1
-skip_if_unavailable=1
-priority=1
-
-[dci]
-name=Distributed CI - Fedora
-baseurl=https://packages.distributed-ci.io/repos/current/fedora/26/x86_64/
-gpgcheck=1
-gpgkey=https://packages.distributed-ci.io/RPM-GPG-KEY-distributedci
-enabled=1
-
-[dci-devel]
-name=Distributed CI - Devel - Fedora
-baseurl=http://packages.distributed-ci.io/repos/development/fedora/26/x86_64/
-gpgcheck=1
-gpgkey=https://packages.distributed-ci.io/RPM-GPG-KEY-distributedci
-enabled=1
-
-[openstack-pike]
-name=OpenStack Pike Repository
-baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-pike/
-gpgcheck=1
-enabled=1
-gpgkey=https://raw.githubusercontent.com/openstack/puppet-openstack_extras/91fac8eab81d0ad071130887d72338a82c06a7f4/files/RPM-GPG-KEY-CentOS-SIG-Cloud
-includepkgs=python2-pifpaf
 '
 
 # CentOS third-party repositories needed
