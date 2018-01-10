@@ -13,10 +13,12 @@ if [[ "$#" == 3 ]]; then
 else
     PATH_TO_REPO=""
 fi
-WORKSPACE='current'
+WORKSPACE='development'
 SUPPORTED_DISTRIBUTIONS='epel-7-x86_64'
 
 pushd ${PATH_TO_PROJ}
+DATE=$(date +%Y%m%d%H%M)
+SHA=$(git rev-parse HEAD | cut -c1-8)
 
 # Configure rpmmacros to enable signing packages
 #
@@ -114,6 +116,7 @@ fi
 rm -rf ${HOME}/rpmbuild && mock --clean
 rpmdev-setuptree
 cp ${PROJ_NAME}.spec ${HOME}/rpmbuild/SPECS/
+sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
 
 if [[ "$PROJ_NAME" == "dci-gpgpubkey" ]]; then
     cp distributed-ci.pub ${HOME}/rpmbuild/SOURCES/
@@ -121,29 +124,18 @@ fi
 
 non_py_projects=("dci-ansible", "dci-ansible-agent", "dci-ui", "ansible-role-dci-feeders", "ansible-role-openstack-stackdump", "ansible-role-openstack-certification", "ansible-role-openstack-rally", "ansible-role-httpd", "dci-doc")
 if [[ -e setup.py ]]; then
-    DATE=$(date +%Y%m%d%H%M)
-    SHA=$(git rev-parse HEAD | cut -c1-8)
-    WORKSPACE='development'
     python setup.py sdist
     cp -v dist/* ${HOME}/rpmbuild/SOURCES/
-    if [[ -d contrib/systemd ]]; then
-        cp -v contrib/systemd/* ${HOME}/rpmbuild/SOURCES/
-    fi
-    sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
+elif [[ "$PROJ_NAME" == "dci-doc" ]]; then
+    ./build.sh
+    cp -r docs ${PROJ_NAME}-0.0.${DATE}git${SHA}
+    tar -czvf ${PROJ_NAME}-0.0.${DATE}git${SHA}.tar.gz ${PROJ_NAME}-0.0.${DATE}git${SHA}
+    mv ${PROJ_NAME}-0.0.${DATE}git${SHA}.tar.gz ${HOME}/rpmbuild/SOURCES/
 elif [[ "${non_py_projects[@]}" =~ "${PROJ_NAME}" ]]; then
-    DATE=$(date +%Y%m%d%H%M)
-    SHA=$(git rev-parse HEAD | cut -c1-8)
-    WORKSPACE='development'
-    if [[ "$PROJ_NAME" == "dci-doc" ]]; then
-        ./build.sh
-        cp -r docs ${PROJ_NAME}-0.0.${DATE}git${SHA}
-        tar -czvf ${PROJ_NAME}-0.0.${DATE}git${SHA}.tar.gz ${PROJ_NAME}-0.0.${DATE}git${SHA}
-        mv ${PROJ_NAME}-0.0.${DATE}git${SHA}.tar.gz ${HOME}/rpmbuild/SOURCES/
-    else
-        git archive HEAD --format=tgz --output=${HOME}/rpmbuild/SOURCES/${PROJ_NAME}-0.0.${DATE}git${SHA}.tar.gz
-    fi
-
-    sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
+    git archive HEAD --format=tgz --output=${HOME}/rpmbuild/SOURCES/${PROJ_NAME}-0.0.${DATE}git${SHA}.tar.gz
+else
+    echo "unsupported repository"
+    exit 1
 fi
 
 rpmbuild -bs ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
