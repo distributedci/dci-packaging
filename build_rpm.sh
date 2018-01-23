@@ -1,6 +1,8 @@
 #!/bin/bash
 set -eux
 
+# DO NOT MERGE
+
 if [[ "$#" -lt 2 ]]; then
     echo "USAGE: ./build_rpm.sh <PATH_TO_PROJ> <PROJ_NAME> [<PATH_TO_REPO>]"
     exit 1
