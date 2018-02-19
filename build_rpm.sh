@@ -17,6 +17,13 @@ WORKSPACE='current'
 SUPPORTED_DISTRIBUTIONS='epel-7-x86_64'
 SIGN_PACKAGE=${DCI_SIGN_PACKAGE:-y}
 
+function set_rdo_cloud_mirror() {
+    cfg_file=$1
+
+    sed -i 's#mirrorlist=http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os#baseurl=http://mirror.regionone.rdo-cloud.rdoproject.org/centos/7/os/x86_64/#g' $cfg_file
+    sed -i 's#mirrorlist=http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=updates#baseurl=http://mirror.regionone.rdo-cloud.rdoproject.org/centos/7/updates/x86_64/#g' $cfg_file
+}
+
 pushd ${PATH_TO_PROJ}
 
 declare -A repo_conf
@@ -167,6 +174,8 @@ ${repo_conf[gpg_signature]}
 ${repo_conf[misc]}
 ${repo_conf[project_specific]}
 EOF
+
+    set_rdo_cloud_mirror ${HOME}/.mock/${arch}-with-extras.cfg
 
     # Note: for the dci-control-server project
     if [[ "$PROJ_NAME" == "dci-control-server" ]]; then
