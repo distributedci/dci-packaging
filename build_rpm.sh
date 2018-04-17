@@ -84,6 +84,13 @@ baseurl=http://packages.distributed-ci.io/repos/extras/el/7/x86_64/
 gpgcheck=0
 enabled=1
 
+[centos-sclo-rh]
+name=CentOS-7 - SCLo rh
+baseurl=http://mirror.centos.org/centos/7/sclo/$basearch/rh/
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo
+
 [centos-openstack-pike]
 name=CentOS-7 - OpenStack Pike
 baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-pike/
