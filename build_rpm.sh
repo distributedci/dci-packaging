@@ -89,7 +89,7 @@ name=CentOS-7 - SCLo rh
 baseurl=http://mirror.centos.org/centos/7/sclo/$basearch/rh/
 gpgcheck=1
 enabled=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo
+gpgkey=https://raw.githubusercontent.com/sclorg/centos-release-scl/master/centos-release-scl/RPM-GPG-KEY-CentOS-SIG-SCLo
 
 [centos-openstack-pike]
 name=CentOS-7 - OpenStack Pike
@@ -191,7 +191,7 @@ EOF
 
     # Build the RPMs in a clean chroot environment with mock to detect missing
     # BuildRequires lines.
-    mock -r ${HOME}/.mock/${arch}-with-extras.cfg rebuild --resultdir=${WORKSPACE}/${rpath} ${HOME}/rpmbuild/SRPMS/${PROJ_NAME}*
+    mock -r ${HOME}/.mock/${arch}-with-extras.cfg rebuild --resultdir=${WORKSPACE}/${rpath} ${HOME}/rpmbuild/SRPMS/${PROJ_NAME}* 2>&1
 done
 
 popd
