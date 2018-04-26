@@ -139,7 +139,18 @@ if [[ "$PROJ_NAME" == "dci-gpgpubkey" ]]; then
     cp distributed-ci.pub ${HOME}/rpmbuild/SOURCES/
 fi
 
-non_py_projects=("dci-ansible", "dci-ansible-agent", "dci-ui", "ansible-role-dci-feeders", "ansible-role-openstack-stackdump", "ansible-role-openstack-certification", "ansible-role-openstack-rally", "ansible-role-httpd", "dci-doc")
+non_py_projects=(
+    "dci-ansible",
+    "dci-ansible-agent",
+    "dci-ui",
+    "ansible-role-dci-feeders",
+    "ansible-role-openstack-stackdump",
+    "ansible-role-openstack-certification",
+    "ansible-role-openstack-rally",
+    "ansible-role-httpd",
+    "dci-doc",
+    "ansible-role-dci-tq",
+)
 if [[ -e setup.py ]]; then
     DATE=$(date +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
