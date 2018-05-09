@@ -57,13 +57,6 @@ enabled=1
 skip_if_unavailable=1
 priority=1
 
-[elasticsearch-2.x]
-name="Elasticsearch repository for 2.x packages"
-baseurl=http://packages.elastic.co/elasticsearch/2.x/centos
-gpgcheck=1
-enabled=1
-gpgkey=https://packages.elastic.co/GPG-KEY-elasticsearch
-
 [dci]
 name=Distributed CI - CentOS 7
 baseurl=https://packages.distributed-ci.io/repos/current/el/7/x86_64/
