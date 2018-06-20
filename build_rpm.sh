@@ -145,6 +145,7 @@ non_py_projects=(
     "dci-doc",
     "ansible-role-dci-tq",
     "ansible-role-dci-import-keys",
+    "ansible-role-dci-retrieve-component",
 )
 if [[ -e setup.py ]]; then
     DATE=$(date +%Y%m%d%H%M)
