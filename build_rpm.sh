@@ -13,6 +13,7 @@ if [[ "$#" == 3 ]]; then
 else
     PATH_TO_REPO=""
 fi
+
 WORKSPACE='current'
 SUPPORTED_DISTRIBUTIONS='epel-7-x86_64'
 SIGN_PACKAGE=${DCI_SIGN_PACKAGE:-y}
@@ -49,24 +50,9 @@ fi
 # CentOS third-party repositories needed
 #
 repo_conf["epel-7-x86_64"]='
-[dci-deps-ci]
-name=Distributed CI - Packaged build during CI
-baseurl=file:///tmp/dependency_repo/development/el/7/x86_64/
-gpgcheck=0
-enabled=1
-skip_if_unavailable=1
-priority=1
-
 [dci]
 name=Distributed CI - CentOS 7
 baseurl=https://packages.distributed-ci.io/repos/current/el/7/x86_64/
-gpgcheck=1
-gpgkey=https://packages.distributed-ci.io/RPM-GPG-KEY-distributedci
-enabled=1
-
-[dci-devel]
-name=Distributed CI - Devel - CentOS 7
-baseurl=http://packages.distributed-ci.io/repos/development/el/7/x86_64/
 gpgcheck=1
 gpgkey=https://packages.distributed-ci.io/RPM-GPG-KEY-distributedci
 enabled=1
@@ -150,7 +136,6 @@ non_py_projects=(
 if [[ -e setup.py ]]; then
     DATE=$(date +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
-    WORKSPACE='development'
     python setup.py sdist
     cp -v dist/* ${HOME}/rpmbuild/SOURCES/
     if [[ -d contrib/systemd ]]; then
@@ -160,7 +145,6 @@ if [[ -e setup.py ]]; then
 elif [[ "${non_py_projects[@]}" =~ "${PROJ_NAME}" ]]; then
     DATE=$(date +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
-    WORKSPACE='development'
     if [[ "$PROJ_NAME" == "dci-doc" ]]; then
         ./build.sh
         cp -r docs ${PROJ_NAME}-0.0.${DATE}git${SHA}
