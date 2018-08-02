@@ -61,20 +61,20 @@ enabled=1
 name=Distributed CI - Extras - CentOS 7
 baseurl=http://packages.distributed-ci.io/repos/extras/el/7/x86_64/
 gpgcheck=0
-enabled=1
+enabled=0
 
 [centos-sclo-rh]
 name=CentOS-7 - SCLo rh
 baseurl=http://mirror.centos.org/centos/7/sclo/$basearch/rh/
 gpgcheck=1
-enabled=1
+enabled=0
 gpgkey=https://raw.githubusercontent.com/sclorg/centos-release-scl/master/centos-release-scl/RPM-GPG-KEY-CentOS-SIG-SCLo
 
 [centos-openstack-pike]
 name=CentOS-7 - OpenStack Pike
 baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-pike/
 gpgcheck=1
-enabled=1
+enabled=0
 gpgkey=https://raw.githubusercontent.com/openstack/puppet-openstack_extras/91fac8eab81d0ad071130887d72338a82c06a7f4/files/RPM-GPG-KEY-CentOS-SIG-Cloud
 '
 
@@ -164,6 +164,7 @@ rpmbuild -bs ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
 
 for arch in $SUPPORTED_DISTRIBUTIONS; do
     rpath=$(echo ${arch}|sed s,-,/,g|sed 's,epel,el,')
+    with_args=""
 
     mkdir -p ${HOME}/.mock
     cp /etc/mock/${arch}.cfg ${HOME}/.mock/${arch}-with-extras.cfg
@@ -178,9 +179,15 @@ EOF
 
     set_rdo_cloud_mirror ${HOME}/.mock/${arch}-with-extras.cfg
 
+    if [[ "$PROJ_NAME" == "dci-control-server" ]]; then
+        with_args="--enablerepo centos-openstack-pike --enablerepo centos-sclo-rh --enablerepo dci-extras"
+    elif [[ "$PROJ_NAME" == "python-dciclient" ]]; then
+        with_args="--enablerepo centos-sclo-rh"
+    fi
+
     # Build the RPMs in a clean chroot environment with mock to detect missing
     # BuildRequires lines.
-    mock -r ${HOME}/.mock/${arch}-with-extras.cfg rebuild --resultdir=${WORKSPACE}/${rpath} ${HOME}/rpmbuild/SRPMS/${PROJ_NAME}* 2>&1
+    mock -r ${HOME}/.mock/${arch}-with-extras.cfg rebuild ${with_args} --resultdir=${WORKSPACE}/${rpath} ${HOME}/rpmbuild/SRPMS/${PROJ_NAME}* 2>&1
 done
 
 popd
