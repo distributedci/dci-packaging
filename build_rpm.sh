@@ -1,4 +1,5 @@
 #!/bin/bash
+#test
 set -eux
 
 if [[ "$#" -lt 2 ]]; then
