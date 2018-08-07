@@ -145,13 +145,15 @@ if [[ -e setup.py ]]; then
 elif [[ "${non_py_projects[@]}" =~ "${PROJ_NAME}" ]]; then
     DATE=$(date +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
+    VERS=$(rpmspec -q --qf "%{version}" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec 2>/dev/null)
+    VERS=$(echo $VERS | sed "s/VERS/${DATE}git${SHA}/g")
     if [[ "$PROJ_NAME" == "dci-doc" ]]; then
         ./build.sh
-        cp -r docs ${PROJ_NAME}-0.0.${DATE}git${SHA}
-        tar -czvf ${PROJ_NAME}-0.0.${DATE}git${SHA}.tar.gz ${PROJ_NAME}-0.0.${DATE}git${SHA}
-        mv ${PROJ_NAME}-0.0.${DATE}git${SHA}.tar.gz ${HOME}/rpmbuild/SOURCES/
+        cp -r docs ${PROJ_NAME}-${VERS}
+        tar -czvf ${PROJ_NAME}-${VERS}.tar.gz ${PROJ_NAME}-${VERS}
+        mv ${PROJ_NAME}-${VERS}.tar.gz ${HOME}/rpmbuild/SOURCES/
     else
-        git archive HEAD --format=tgz --output=${HOME}/rpmbuild/SOURCES/${PROJ_NAME}-0.0.${DATE}git${SHA}.tar.gz
+        git archive HEAD --format=tgz --output=${HOME}/rpmbuild/SOURCES/${PROJ_NAME}-${VERS}.tar.gz
     fi
 
     sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
