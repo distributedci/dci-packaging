@@ -121,7 +121,6 @@ fi
 non_py_projects=(
     "dci-ansible",
     "dci-ansible-agent",
-    "dci-ansible-agent-rhel",
     "dci-rhel-agent",
     "dci-ui",
     "ansible-role-dci-feeders",
