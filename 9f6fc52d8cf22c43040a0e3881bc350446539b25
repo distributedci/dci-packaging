@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfa95a28_e38c6ec4",
+        "filename": "build_rpm.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 30
+      },
+      "writtenOn": "2018-08-21T18:20:51Z",
+      "side": 0,
+      "message": "I would prefer you keep the \"dci-ansible-agent\" line for now. This will allow us to continue to build RPM from dci-ansible-agent during the transition.",
+      "revId": "9f6fc52d8cf22c43040a0e3881bc350446539b25",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0",
+      "unresolved": false
+    }
+  ]
+}
