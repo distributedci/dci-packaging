@@ -120,7 +120,7 @@ fi
 
 non_py_projects=(
     "dci-ansible",
-    "dci-ansible-agent",
+    "dci-openstack-agent",
     "dci-rhel-agent",
     "dci-ui",
     "ansible-role-dci-feeders",
@@ -182,6 +182,10 @@ EOF
         with_args="--enablerepo centos-openstack-pike --enablerepo centos-sclo-rh --enablerepo dci-extras"
     elif [[ "$PROJ_NAME" == "python-dciclient" ]]; then
         with_args="--enablerepo centos-sclo-rh"
+    fi
+
+    if [[ "$PROJ_NAME" == "dci-openstack-agent"  ]]; then
+        PROJ_NAME='dci-ansible-agent'
     fi
 
     # Build the RPMs in a clean chroot environment with mock to detect missing
