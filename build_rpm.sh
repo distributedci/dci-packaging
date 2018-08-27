@@ -146,7 +146,7 @@ if [[ -e setup.py ]]; then
 elif [[ "${non_py_projects[@]}" =~ "${PROJ_NAME}" ]]; then
     DATE=$(date +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
-    VERS=$(rpmspec -q --qf "%{version}" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec 2>/dev/null)
+    VERS=$(rpmspec -q --qf "%{version}\n" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec|head -n1 2>/dev/null)
     VERS=$(echo $VERS | sed "s/VERS/${DATE}git${SHA}/g")
     if [[ "$PROJ_NAME" == "dci-doc" ]]; then
         ./build.sh
