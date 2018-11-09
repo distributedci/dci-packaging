@@ -122,6 +122,7 @@ non_py_projects=(
     "dci-ansible",
     "dci-ansible-agent",
     "dci-openstack-agent",
+    "dci-openshift-agent",
     "dci-rhel-agent",
     "dci-ui",
     "ansible-role-dci-feeders",
