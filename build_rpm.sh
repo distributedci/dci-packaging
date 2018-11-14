@@ -118,24 +118,6 @@ if [[ "$PROJ_NAME" == "dci-gpgpubkey" ]]; then
     cp distributed-ci.pub ${HOME}/rpmbuild/SOURCES/
 fi
 
-non_py_projects=(
-    "dci-ansible",
-    "dci-ansible-agent",
-    "dci-openstack-agent",
-    "dci-openshift-agent",
-    "dci-rhel-agent",
-    "dci-ui",
-    "ansible-role-dci-feeders",
-    "ansible-role-openstack-stackdump",
-    "ansible-role-openstack-certification",
-    "ansible-role-openstack-rally",
-    "ansible-role-httpd",
-    "dci-doc",
-    "ansible-role-dci-tq",
-    "ansible-role-dci-import-keys",
-    "ansible-role-dci-retrieve-component",
-    "ansible-role-dci-sync-registry",
-)
 if [[ -e setup.py ]]; then
     DATE=$(date +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
@@ -145,7 +127,7 @@ if [[ -e setup.py ]]; then
         cp -v contrib/systemd/* ${HOME}/rpmbuild/SOURCES/
     fi
     sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
-elif [[ "${non_py_projects[@]}" =~ "${PROJ_NAME}" ]]; then
+else
     DATE=$(date +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
     VERS=$(rpmspec -q --qf "%{version}\n" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec|head -n1 2>/dev/null)
