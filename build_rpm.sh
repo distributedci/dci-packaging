@@ -136,7 +136,7 @@ non_py_projects=(
     "ansible-role-dci-retrieve-component",
 )
 if [[ -e setup.py ]]; then
-    DATE=$(date +%Y%m%d%H%M)
+    DATE=$(date --utc +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
     python setup.py sdist
     cp -v dist/* ${HOME}/rpmbuild/SOURCES/
@@ -145,7 +145,7 @@ if [[ -e setup.py ]]; then
     fi
     sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
 elif [[ "${non_py_projects[@]}" =~ "${PROJ_NAME}" ]]; then
-    DATE=$(date +%Y%m%d%H%M)
+    DATE=$(date --utc +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
     VERS=$(rpmspec -q --qf "%{version}\n" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec|head -n1 2>/dev/null)
     VERS=$(echo $VERS | sed "s/VERS/${DATE}git${SHA}/g")
