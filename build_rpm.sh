@@ -169,10 +169,6 @@ EOF
         with_args="--enablerepo centos-sclo-rh"
     fi
 
-    if [[ "$PROJ_NAME" == "dci-openstack-agent"  ]]; then
-        PROJ_NAME='dci-ansible-agent'
-    fi
-
     # Build the RPMs in a clean chroot environment with mock to detect missing
     # BuildRequires lines.
     mock -r ${HOME}/.mock/${arch}-with-extras.cfg rebuild ${with_args} --resultdir=${WORKSPACE}/${rpath} ${HOME}/rpmbuild/SRPMS/${PROJ_NAME}* 2>&1
