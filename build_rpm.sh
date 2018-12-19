@@ -29,23 +29,7 @@ pushd ${PATH_TO_PROJ}
 
 declare -A repo_conf
 
-if [ "${SIGN_PACKAGE}" == "y" ]; then
-    # Configure rpmmacros to enable signing packages
-    #
-    echo '%_signature gpg' >> ~/.rpmmacros
-    echo '%_gpg_name Distributed-CI' >> ~/.rpmmacros
-
-    # Specify the mock options so the generated packages will
-    # be signed
-    repo_conf["gpg_signature"]='
-config_opts["plugin_conf"]["sign_enable"] = True
-config_opts["plugin_conf"]["sign_opts"] = {}
-config_opts["plugin_conf"]["sign_opts"]["cmd"] = "rpmsign"
-config_opts["plugin_conf"]["sign_opts"]["opts"] = "--addsign %(rpms)s"
-'
-else
-    repo_conf["gpg_signature"]=''
-fi
+repo_conf["gpg_signature"]=''
 
 # CentOS third-party repositories needed
 #
