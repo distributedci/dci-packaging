@@ -16,13 +16,13 @@ fi
 
 WORKSPACE='current'
 SUPPORTED_DISTRIBUTIONS='epel-7-x86_64'
-SIGN_PACKAGE=${DCI_SIGN_PACKAGE:-y}
+RDO_CLOUD_MIRROR='mirror.regionone.rdo-cloud.rdoproject.org'
 
 function set_rdo_cloud_mirror() {
     cfg_file=$1
 
-    sed -i 's#mirrorlist=http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os#baseurl=http://mirror.regionone.rdo-cloud.rdoproject.org/centos/7/os/x86_64/#g' $cfg_file
-    sed -i 's#mirrorlist=http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=updates#baseurl=http://mirror.regionone.rdo-cloud.rdoproject.org/centos/7/updates/x86_64/#g' $cfg_file
+    sed -i "s#mirrorlist=http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os#baseurl=http://${RDO_CLOUD_MIRROR}/centos/7/os/x86_64/#g" $cfg_file
+    sed -i "s#mirrorlist=http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=updates#baseurl=http://${RDO_CLOUD_MIRROR}/centos/7/updates/x86_64/#g" $cfg_file
 }
 
 pushd ${PATH_TO_PROJ}
@@ -161,7 +161,8 @@ ${repo_conf[misc]}
 ${repo_conf[project_specific]}
 EOF
 
-    set_rdo_cloud_mirror ${HOME}/.mock/${arch}-with-extras.cfg
+    # Use a TTL=4 to evaluate the distance between the host the mirror
+    ping -c 2 -t 4 -W 1 ${RDO_CLOUD_MIRROR} && set_rdo_cloud_mirror ${HOME}/.mock/${arch}-with-extras.cfg
 
     if [[ "$PROJ_NAME" == "dci-control-server" ]]; then
         with_args="--enablerepo centos-openstack-pike --enablerepo centos-sclo-rh --enablerepo dci-extras"
