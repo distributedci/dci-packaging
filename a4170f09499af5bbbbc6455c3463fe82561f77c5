@@ -1,0 +1,8 @@
+Code-Review+2: Dimitri Savineau <dsavinea@redhat.com>
+Workflow+1: Yassine Lamgarchal <yassine.lamgarchal@redhat.com>
+Verified+2: Zuul CI <zuul@softwarefactory-project.io>
+Submitted-by: Zuul CI <zuul@softwarefactory-project.io>
+Submitted-at: Mon, 07 Jan 2019 19:50:13 +0000
+Reviewed-on: https://softwarefactory-project.io/r/14451
+Project: dci-packaging
+Branch: refs/heads/master
