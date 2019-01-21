@@ -119,18 +119,15 @@ if [[ "$PROJ_NAME" == "dci-gpgpubkey" ]]; then
     cp distributed-ci.pub ${HOME}/rpmbuild/SOURCES/
 fi
 
+DATE=$(date --utc +%Y%m%d%H%M)
+SHA=$(git rev-parse HEAD | cut -c1-8)
 if [[ -e setup.py ]]; then
-    DATE=$(date --utc +%Y%m%d%H%M)
-    SHA=$(git rev-parse HEAD | cut -c1-8)
     python setup.py sdist
     cp -v dist/* ${HOME}/rpmbuild/SOURCES/
     if [[ -d contrib/systemd ]]; then
         cp -v contrib/systemd/* ${HOME}/rpmbuild/SOURCES/
     fi
-    sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
 else
-    DATE=$(date --utc +%Y%m%d%H%M)
-    SHA=$(git rev-parse HEAD | cut -c1-8)
     VERS=$(rpmspec -q --qf "%{version}\n" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec|head -n1 2>/dev/null)
     VERS=$(echo $VERS | sed "s/VERS/${DATE}git${SHA}/g")
     if [[ "$PROJ_NAME" == "dci-doc" ]]; then
@@ -141,9 +138,8 @@ else
     else
         git archive HEAD --format=tgz --output=${HOME}/rpmbuild/SOURCES/${PROJ_NAME}-${VERS}.tar.gz
     fi
-
-    sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
 fi
+sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
 
 rpmbuild -bs ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
 
