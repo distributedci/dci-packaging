@@ -1,0 +1,9 @@
+Code-Review+1: François Charlier <francois.charlier@redhat.com>
+Code-Review+2: Dimitri Savineau <dsavinea@redhat.com>
+Workflow+1: Gonéri Le Bouder <goneri@lebouder.net>
+Verified+2: Zuul CI <zuul@softwarefactory-project.io>
+Submitted-by: Zuul CI <zuul@softwarefactory-project.io>
+Submitted-at: Fri, 01 Feb 2019 15:15:34 +0000
+Reviewed-on: https://softwarefactory-project.io/r/14663
+Project: dci-packaging
+Branch: refs/heads/master
