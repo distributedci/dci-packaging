@@ -146,7 +146,7 @@ EOF
 
     if [[ "$PROJ_NAME" == "dci-control-server" ]]; then
         with_args="--enablerepo centos-openstack-pike --enablerepo centos-sclo-rh --enablerepo dci-extras"
-    elif [[ "$PROJ_NAME" == "python-dciclient" ]]; then
+    elif [[ "$PROJ_NAME" == "python-dciclient" ]] || [[ "$PROJ_NAME" == "dci-ui" ]]; then
         with_args="--enablerepo centos-sclo-rh"
     fi
 
