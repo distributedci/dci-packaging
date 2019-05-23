@@ -60,13 +60,6 @@ baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-pike/
 gpgcheck=1
 enabled=0
 gpgkey=https://raw.githubusercontent.com/openstack/puppet-openstack_extras/91fac8eab81d0ad071130887d72338a82c06a7f4/files/RPM-GPG-KEY-CentOS-SIG-Cloud
-
-[yarn]
-name=Yarn Repository
-baseurl=https://dl.yarnpkg.com/rpm/
-enabled=1
-gpgcheck=1
-gpgkey=https://dl.yarnpkg.com/rpm/pubkey.gpg
 '
 
 # MISC mock configuration
