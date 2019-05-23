@@ -76,15 +76,6 @@ config_opts["nosync"] = True
 repo_conf["project_specific"]='
 '
 
-# Note: Need to contact the npm registry to retrieve
-#       the npm modules.
-if [[ "$PROJ_NAME" == "dci-ui" ]]; then
-repo_conf["project_specific"]='
-config_opts["use_host_resolv"] = True
-config_opts["rpmbuild_networking"] = True
-'
-fi
-
 if [[ -n "$PATH_TO_REPO" ]]; then
 repo_conf["project_specific"]='
 config_opts["plugin_conf"]["bind_mount_enable"] = True
