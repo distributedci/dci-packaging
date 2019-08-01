@@ -96,6 +96,16 @@ fi
 #
 rm -rf ${HOME}/rpmbuild && mock --clean
 rpmdev-setuptree
+if [[ "$PROJ_NAME" == *-distgit ]]; then
+    IS_DISTGIT = "true"
+    SPECS = ( *.spec )
+    if [[ ${#SPECS[@]} == 0 ]]; then
+        echo "ERROR: No spec file in repository"
+    elif [[ ${#SPECS[@]} > 1 ]]; then
+        echo "ERROR: Too many spec files in repository ($SPECS[@])"
+    endif
+    PROJ_NAME = ${SPECS[1]//.spec}
+endif
 cp ${PROJ_NAME}.spec ${HOME}/rpmbuild/SPECS/
 
 if [[ "$PROJ_NAME" == "dci-gpgpubkey" ]]; then
@@ -118,6 +128,8 @@ else
         cp -r docs ${PROJ_NAME}-${VERS}
         tar -czvf ${PROJ_NAME}-${VERS}.tar.gz ${PROJ_NAME}-${VERS}
         mv ${PROJ_NAME}-${VERS}.tar.gz ${HOME}/rpmbuild/SOURCES/
+    elif [[ -n "$IS_DISTGIT" ]]; then
+        spectool -g ${PROJ_NAME}.spec -d ${HOME}/rpmbuild/SOURCES/
     else
         git archive HEAD --format=tgz --output=${HOME}/rpmbuild/SOURCES/${PROJ_NAME}-${VERS}.tar.gz
     fi
