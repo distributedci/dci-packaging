@@ -96,6 +96,21 @@ fi
 #
 rm -rf ${HOME}/rpmbuild && mock --clean
 rpmdev-setuptree
+IS_DISTGIT=""
+if [[ "$PROJ_NAME" == *-distgit ]]; then
+    shopt -u nullglob
+    IS_DISTGIT="true"
+    SPECS=( *.spec )
+    if [[ ${#SPECS[@]} == 0 ]]; then
+        echo "ERROR: No spec file in repository"
+        exit 1
+    elif [[ ${#SPECS[@]} == 1 ]]; then
+        PROJ_NAME=${SPECS[0]//.spec}
+    else
+        echo "ERROR: Too many spec files in repository ($SPECS[@])"
+        exit 1
+    fi
+fi
 cp ${PROJ_NAME}.spec ${HOME}/rpmbuild/SPECS/
 
 if [[ "$PROJ_NAME" == "dci-gpgpubkey" ]]; then
@@ -118,6 +133,11 @@ else
         cp -r docs ${PROJ_NAME}-${VERS}
         tar -czvf ${PROJ_NAME}-${VERS}.tar.gz ${PROJ_NAME}-${VERS}
         mv ${PROJ_NAME}-${VERS}.tar.gz ${HOME}/rpmbuild/SOURCES/
+    elif [[ -n "${IS_DISTGIT}" ]]; then
+        spectool -g ${PROJ_NAME}.spec -C ${HOME}/rpmbuild/SOURCES/
+        # FIXME(hguemar): just copy sources and patches listed in spec file
+        GLOBIGNORE=${PROJ_NAME}.spec
+        cp -r * ${HOME}/rpmbuild/SOURCES/
     else
         git archive HEAD --format=tgz --output=${HOME}/rpmbuild/SOURCES/${PROJ_NAME}-${VERS}.tar.gz
     fi
