@@ -54,12 +54,6 @@ gpgcheck=1
 enabled=0
 gpgkey=https://raw.githubusercontent.com/sclorg/centos-release-scl/master/centos-release-scl/RPM-GPG-KEY-CentOS-SIG-SCLo
 
-[centos-openstack-pike]
-name=CentOS-7 - OpenStack Pike
-baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-pike/
-gpgcheck=1
-enabled=0
-gpgkey=https://raw.githubusercontent.com/openstack/puppet-openstack_extras/91fac8eab81d0ad071130887d72338a82c06a7f4/files/RPM-GPG-KEY-CentOS-SIG-Cloud
 '
 
 # MISC mock configuration
@@ -165,7 +159,7 @@ EOF
     ping -c 2 -t 4 -W 1 ${RDO_CLOUD_MIRROR} && set_rdo_cloud_mirror ${HOME}/.mock/${arch}-with-extras.cfg
 
     if [[ "$PROJ_NAME" == "dci-control-server" ]]; then
-        with_args="--enablerepo centos-openstack-pike --enablerepo centos-sclo-rh --enablerepo dci-extras"
+        with_args="--enablerepo centos-sclo-rh --enablerepo dci-extras"
     elif [[ "$PROJ_NAME" == "python-dciclient" ]] || [[ "$PROJ_NAME" == "dci-ui" ]]; then
         with_args="--enablerepo centos-sclo-rh"
     fi
