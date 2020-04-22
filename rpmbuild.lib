@@ -1,0 +1,245 @@
+#/bin/bash
+
+
+function set_rdo_cloud_mirror() {
+    cfg_file=$1
+
+    sed -i "s#mirrorlist=http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os#baseurl=http://${RDO_CLOUD_MIRROR}/centos/7/os/x86_64/#g" $cfg_file
+    sed -i "s#mirrorlist=http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=updates#baseurl=http://${RDO_CLOUD_MIRROR}/centos/7/updates/x86_64/#g" $cfg_file
+}
+
+
+function generate_mock_profile_v1() {
+    declare -A repo_conf
+
+    repo_conf["gpg_signature"]=''
+
+    # CentOS third-party repositories needed
+    #
+    repo_conf["epel-7-x86_64"]='
+[dci]
+name=Distributed CI - CentOS 7
+baseurl=https://packages.distributed-ci.io/repos/current/el/7/x86_64/
+gpgcheck=1
+gpgkey=https://packages.distributed-ci.io/RPM-GPG-KEY-distributedci
+enabled=1
+
+[dci-extras]
+name=Distributed CI - Extras - CentOS 7
+baseurl=http://packages.distributed-ci.io/repos/extras/el/7/x86_64/
+gpgcheck=0
+enabled=0
+
+[centos-sclo-rh]
+name=CentOS-7 - SCLo rh
+baseurl=http://mirror.centos.org/centos/7/sclo/$basearch/rh/
+gpgcheck=1
+enabled=0
+gpgkey=https://raw.githubusercontent.com/sclorg/centos-release-scl/master/centos-release-scl/RPM-GPG-KEY-CentOS-SIG-SCLo
+
+[centos-openstack-rocky]
+name=CentOS-7 - OpenStack Rocky
+baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-rocky/
+gpgcheck=1
+enabled=0
+gpgkey=https://raw.githubusercontent.com/openstack/puppet-openstack_extras/91fac8eab81d0ad071130887d72338a82c06a7f4/files/RPM-GPG-KEY-CentOS-SIG-Cloud
+'
+
+
+    # MISC mock configuration
+    #
+    repo_conf["misc"]='
+config_opts["use_host_resolv"] = False
+config_opts["files"]["etc/hosts"] = """
+127.0.0.1 pypi.python.org
+"""
+config_opts["nosync"] = True
+'
+
+    # Project specific settings. Needs to be overrided
+    repo_conf["project_specific"]='
+'
+
+    # Note: Need to contact the npm registry to retrieve
+    #       the npm modules.
+    if [[ "$PROJ_NAME" == "dci-ui" ]]; then
+        repo_conf["project_specific"]='
+config_opts["use_host_resolv"] = True
+config_opts["rpmbuild_networking"] = True
+'
+    fi
+
+    if [[ -n "$PATH_TO_REPO" ]]; then
+        repo_conf["project_specific"]='
+config_opts["plugin_conf"]["bind_mount_enable"] = True
+config_opts["plugin_conf"]["bind_mount_opts"]["dirs"].append(("'$PATH_TO_REPO'", "/tmp/dependency_repo"))
+'
+    fi
+
+
+    mkdir -p ${HOME}/.mock
+    cp /etc/mock/${arch}.cfg ${HOME}/.mock/${arch}-with-extras.cfg
+    sed -i '$ d' ${HOME}/.mock/${arch}-with-extras.cfg
+    cat <<EOF >> ${HOME}/.mock/${arch}-with-extras.cfg
+${repo_conf[${arch}]}
+"""
+${repo_conf[gpg_signature]}
+${repo_conf[misc]}
+${repo_conf[project_specific]}
+EOF
+
+}
+
+
+
+function generate_mock_profile_v2() {
+    declare -A repo_conf
+
+    repo_conf["epel-7-x86_64"]='
+config_opts["yum.conf"] += """
+[dci]
+name=Distributed CI - CentOS 7
+baseurl=https://packages.distributed-ci.io/repos/current/el/7/x86_64/
+gpgcheck=1
+gpgkey=https://packages.distributed-ci.io/RPM-GPG-KEY-distributedci
+enabled=1
+
+[dci-extras]
+name=Distributed CI - Extras - CentOS 7
+baseurl=http://packages.distributed-ci.io/repos/extras/el/7/x86_64/
+gpgcheck=0
+enabled=0
+
+[centos-sclo-rh]
+name=CentOS-7 - SCLo rh
+baseurl=http://mirror.centos.org/centos/7/sclo/$basearch/rh/
+gpgcheck=1
+enabled=0
+gpgkey=https://raw.githubusercontent.com/sclorg/centos-release-scl/master/centos-release-scl/RPM-GPG-KEY-CentOS-SIG-SCLo
+
+[centos-openstack-rocky]
+name=CentOS-7 - OpenStack Rocky
+baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-rocky/
+gpgcheck=1
+enabled=0
+gpgkey=https://raw.githubusercontent.com/openstack/puppet-openstack_extras/91fac8eab81d0ad071130887d72338a82c06a7f4/files/RPM-GPG-KEY-CentOS-SIG-Cloud
+"""
+'
+
+    repo_conf["misc"]='
+config_opts["use_host_resolv"] = False
+config_opts["files"]["etc/hosts"] = """
+127.0.0.1 pypi.python.org
+"""
+config_opts["nosync"] = True
+'
+
+    # Project specific settings. Needs to be overrided
+    repo_conf["project_specific"]='
+    '
+
+    # Note: Need to contact the npm registry to retrieve
+    #       the npm modules.
+    if [[ "$PROJ_NAME" == "dci-ui" ]]; then
+        repo_conf["project_specific"]='
+config_opts["use_host_resolv"] = True
+config_opts["rpmbuild_networking"] = True
+'
+    fi
+
+    if [[ -n "$PATH_TO_REPO" ]]; then
+repo_conf["project_specific"]='
+config_opts["plugin_conf"]["bind_mount_enable"] = True
+config_opts["plugin_conf"]["bind_mount_opts"]["dirs"].append(("'$PATH_TO_REPO'", "/tmp/dependency_repo"))
+'
+    fi
+
+    cat << EOF >| ${HOME}/.mock/${arch}-with-extras.cfg
+
+include('templates/epel-7.tpl')
+
+${repo_conf[${arch}]}
+${repo_conf[misc]}
+${repo_conf[project_specific]}
+
+config_opts['root'] = 'epel-7-x86_64'
+config_opts['target_arch'] = 'x86_64'
+config_opts['legal_host_arches'] = ('x86_64',)
+EOF
+
+}
+
+
+function generate_mock_profile() {
+    PLATFORM=$(awk -F'=' '/^ID=/ { print $2 }' /etc/os-release)
+    VERSION_ID=$(awk -F'=' '/^VERSION_ID=/ { print $2 }' /etc/os-release)
+
+    if [[ ( "${PLATFORM//\"}" == rhel || "${PLATFORM//\"}" == centos ) ]] && (( ${VERSION_ID//\"} < 8 )); then
+        generate_mock_profile_v1
+    else
+        generate_mock_profile_v2
+    fi
+}
+
+
+function setup_build() {
+    # Create the proper filesystem hierarchy to proceed with srpm creatioon
+    #
+    rm -rf ${HOME}/rpmbuild && mock --clean
+    rpmdev-setuptree
+}
+
+
+function generate_srpm() {
+    IS_DISTGIT=""
+    if [[ "$PROJ_NAME" == *-distgit ]]; then
+        shopt -u nullglob
+        IS_DISTGIT="true"
+        SPECS=( *.spec )
+        if [[ ${#SPECS[@]} == 0 ]]; then
+            echo "ERROR: No spec file in repository"
+            exit 1
+        elif [[ ${#SPECS[@]} == 1 ]]; then
+            PROJ_NAME=${SPECS[0]//.spec}
+        else
+            echo "ERROR: Too many spec files in repository ($SPECS[@])"
+            exit 1
+        fi
+    fi
+
+    cp ${PROJ_NAME}.spec ${HOME}/rpmbuild/SPECS/
+
+
+    DATE=$(date --utc +%Y%m%d%H%M)
+    SHA=$(git rev-parse HEAD | cut -c1-8)
+    if [[ -e setup.py ]]; then
+        python setup.py sdist
+        cp -v dist/* ${HOME}/rpmbuild/SOURCES/
+        if [[ -d contrib/systemd ]]; then
+            cp -v contrib/systemd/* ${HOME}/rpmbuild/SOURCES/
+        fi
+    else
+        VERS=$(rpmspec -q --qf "%{version}\n" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec|head -n1 2>/dev/null)
+        VERS=$(echo $VERS | sed "s/VERS/${DATE}git${SHA}/g")
+        if [[ "$PROJ_NAME" == "dci-doc" ]]; then
+            ./build.sh
+            cp -r docs ${PROJ_NAME}-${VERS}
+            tar -czvf ${PROJ_NAME}-${VERS}.tar.gz ${PROJ_NAME}-${VERS}
+            mv ${PROJ_NAME}-${VERS}.tar.gz ${HOME}/rpmbuild/SOURCES/
+        elif [[ -n "${IS_DISTGIT}" ]]; then
+            spectool -g ${PROJ_NAME}.spec -C ${HOME}/rpmbuild/SOURCES/
+            # FIXME(hguemar): just copy sources and patches listed in spec file
+            GLOBIGNORE=${PROJ_NAME}.spec
+            cp -r * ${HOME}/rpmbuild/SOURCES/
+        else
+            git archive HEAD --format=tgz --output=${HOME}/rpmbuild/SOURCES/${PROJ_NAME}-${VERS}.tar.gz
+        fi
+    fi
+    sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
+
+    if [[ "$PROJ_NAME" == "dci-gpgpubkey" ]]; then
+        cp distributed-ci.pub ${HOME}/rpmbuild/SOURCES/
+    fi
+    
+    rpmbuild -bs ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
+}
