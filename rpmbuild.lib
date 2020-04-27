@@ -76,8 +76,6 @@ config_opts["plugin_conf"]["bind_mount_opts"]["dirs"].append(("'$PATH_TO_REPO'",
 '
     fi
 
-
-    mkdir -p ${HOME}/.mock
     cp /etc/mock/${arch}.cfg ${HOME}/.mock/${arch}-with-extras.cfg
     sed -i '$ d' ${HOME}/.mock/${arch}-with-extras.cfg
     cat <<EOF >> ${HOME}/.mock/${arch}-with-extras.cfg
@@ -172,6 +170,7 @@ function generate_mock_profile() {
     PLATFORM=$(awk -F'=' '/^ID=/ { print $2 }' /etc/os-release)
     VERSION_ID=$(awk -F'=' '/^VERSION_ID=/ { print $2 }' /etc/os-release)
 
+    mkdir -p ${HOME}/.mock
     if [[ ( "${PLATFORM//\"}" == rhel || "${PLATFORM//\"}" == centos ) ]] && (( ${VERSION_ID//\"} < 8 )); then
         generate_mock_profile_v1
     else
