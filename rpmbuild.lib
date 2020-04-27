@@ -171,7 +171,7 @@ function generate_mock_profile() {
     VERSION_ID=$(awk -F'=' '/^VERSION_ID=/ { print $2 }' /etc/os-release)
 
     mkdir -p ${HOME}/.mock
-    if [[ ( "${PLATFORM//\"}" == rhel || "${PLATFORM//\"}" == centos ) ]] && (( ${VERSION_ID//\"} < 8 )); then
+    if [[ ( "${PLATFORM//\"}" == rhel || "${PLATFORM//\"}" == centos ) ]] && (( ${VERSION_ID//\"} < 9 )); then
         generate_mock_profile_v1
     else
         generate_mock_profile_v2
