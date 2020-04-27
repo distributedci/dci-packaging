@@ -153,9 +153,7 @@ config_opts["plugin_conf"]["bind_mount_enable"] = True
 config_opts["plugin_conf"]["bind_mount_opts"]["dirs"].append(("'$PATH_TO_REPO'", "/tmp/dependency_repo"))
 '
     fi
-
-    cat << EOF >| ${HOME}/.mock/${arch}-with-extras.cfg
-
+    cat <<EOF > ${HOME}/.mock/${arch}-with-extras.cfg
 include('templates/epel-7.tpl')
 
 ${repo_conf[${arch}]}
