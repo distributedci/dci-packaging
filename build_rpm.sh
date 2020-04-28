@@ -22,28 +22,26 @@ RDO_CLOUD_MIRROR='mirror.regionone.rdo-cloud.rdoproject.org'
 
 pushd ${PATH_TO_PROJ}
 
+arch="epel-7-x86_64"
+rpath=$(echo ${arch}|sed s,-,/,g|sed 's,epel,el,')
+with_args=""
 
 setup_build
-
+generate_mock_profile
+mock -r ${HOME}/.mock/${arch}-with-extras.cfg --init
 generate_srpm
+# Use a TTL=4 to evaluate the distance between the host the mirror
+ping -c 2 -t 4 -W 1 ${RDO_CLOUD_MIRROR} && set_rdo_cloud_mirror ${HOME}/.mock/${arch}-with-extras.cfg
 
-for arch in $SUPPORTED_DISTRIBUTIONS; do
-    rpath=$(echo ${arch}|sed s,-,/,g|sed 's,epel,el,')
-    with_args=""
+if [[ "$PROJ_NAME" == "dci-control-server" ]]; then
+    with_args="--enablerepo centos-openstack-rocky --enablerepo centos-sclo-rh --enablerepo dci-extras"
+elif [[ "$PROJ_NAME" == "python-dciclient" ]] || [[ "$PROJ_NAME" == "dci-ui" ]]; then
+    with_args="--enablerepo centos-sclo-rh"
+fi
 
-    generate_mock_profile
-    # Use a TTL=4 to evaluate the distance between the host the mirror
-    ping -c 2 -t 4 -W 1 ${RDO_CLOUD_MIRROR} && set_rdo_cloud_mirror ${HOME}/.mock/${arch}-with-extras.cfg
+# Build the RPMs in a clean chroot environment with mock to detect missing
+# BuildRequires lines.
+mock -r ${HOME}/.mock/${arch}-with-extras.cfg rebuild ${with_args} --resultdir=${WORKSPACE}/${rpath} ${HOME}/rpmbuild/SRPMS/*.src.rpm 2>&1
 
-    if [[ "$PROJ_NAME" == "dci-control-server" ]]; then
-        with_args="--enablerepo centos-openstack-rocky --enablerepo centos-sclo-rh --enablerepo dci-extras"
-    elif [[ "$PROJ_NAME" == "python-dciclient" ]] || [[ "$PROJ_NAME" == "dci-ui" ]]; then
-        with_args="--enablerepo centos-sclo-rh"
-    fi
-
-    # Build the RPMs in a clean chroot environment with mock to detect missing
-    # BuildRequires lines.
-    mock -r ${HOME}/.mock/${arch}-with-extras.cfg rebuild ${with_args} --resultdir=${WORKSPACE}/${rpath} ${HOME}/rpmbuild/SRPMS/*.src.rpm 2>&1
-done
 
 popd
