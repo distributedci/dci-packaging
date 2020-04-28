@@ -182,7 +182,7 @@ function generate_mock_profile() {
 function setup_build() {
     # Create the proper filesystem hierarchy to proceed with srpm creatioon
     #
-    rm -rf ${HOME}/rpmbuild && mock --clean
+    rm -rf ${HOME}/rpmbuild && mock -r${HOME}/.mock/${arch}-with-extras.cfg --clean
     rpmdev-setuptree
 }
 
@@ -210,7 +210,15 @@ function generate_srpm() {
     DATE=$(date --utc +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
     if [[ -e setup.py ]]; then
-        python2 setup.py sdist
+        MOCKDIR=$(mock -r ${HOME}/.mock/${arch}-with-extras.cfg -p)
+        MOCKDIR=${MOCKDIR%/}
+        mkdir $MOCKDIR/var/tmp/pkgsrc
+        cp -pr . $MOCKDIR/var/tmp/pkgsrc
+        PYTHON_INTERPRETERS="python2 python2-devel python2-setuptools python36 python36-devel"
+        mock -r ${HOME}/.mock/${arch}-with-extras.cfg --install $PYTHON_INTERPRETERS
+        mock -r ${HOME}/.mock/${arch}-with-extras.cfg --chroot "cd /var/tmp/pkgsrc && python2 setup.py sdist"
+        mock -r ${HOME}/.mock/${arch}-with-extras.cfg --copyout /var/tmp/pkgsrc/dist ./dist
+        mock -r ${HOME}/.mock/${arch}-with-extras.cfg --clean
         cp -v dist/* ${HOME}/rpmbuild/SOURCES/
         if [[ -d contrib/systemd ]]; then
             cp -v contrib/systemd/* ${HOME}/rpmbuild/SOURCES/
@@ -237,6 +245,11 @@ function generate_srpm() {
     if [[ "$PROJ_NAME" == "dci-gpgpubkey" ]]; then
         cp distributed-ci.pub ${HOME}/rpmbuild/SOURCES/
     fi
-    
-    rpmbuild -bs ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
+
+    SOURCES=""
+    for source in ${HOME}/rpmbuild/SOURCES/*; do
+        SOURCES+=" --sources=$source"
+    done
+
+    mock -r ${HOME}/.mock/${arch}-with-extras.cfg --buildsrpm --spec ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec $SOURCES --resultdir=${HOME}/rpmbuild/SRPMS/
 }
