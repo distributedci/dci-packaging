@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b99f36a_ee162d47",
+        "filename": "build_rpm.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 166
+      },
+      "writtenOn": "2020-04-29T13:04:04Z",
+      "side": 0,
+      "message": "There\u0027s only one arch :)",
+      "revId": "93ab85f66782eac726c06fa9627797d075c17b99",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0",
+      "unresolved": false
+    }
+  ]
+}
