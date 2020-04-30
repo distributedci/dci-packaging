@@ -10,8 +10,8 @@ fi
 
 PATH_TO_PROJ=$1
 PROJ_NAME=$2
-if [[ "$#" == 3 ]]; then
-    PATH_TO_REPO=$3
+if [[ "$#" == 4 ]]; then
+    PATH_TO_REPO=$4
 else
     PATH_TO_REPO=""
 fi
@@ -20,11 +20,12 @@ WORKSPACE='current'
 SUPPORTED_DISTRIBUTIONS='epel-7-x86_64'
 RDO_CLOUD_MIRROR='mirror.regionone.rdo-cloud.rdoproject.org'
 
-pushd ${PATH_TO_PROJ}
-
-arch="epel-7-x86_64"
+arch="${3:-epel-7-x86_64}"
 rpath=$(echo ${arch}|sed s,-,/,g|sed 's,epel,el,')
 with_args=""
+basedir=$PWD
+
+pushd ${PATH_TO_PROJ}
 
 generate_mock_profile
 setup_build
