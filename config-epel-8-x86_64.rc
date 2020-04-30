@@ -1,0 +1,43 @@
+declare -A repo_conf
+
+repo_conf["header"]="
+include('templates/centos-8.tpl')
+include('templates/epel-8.tpl')
+"
+
+repo_conf["epel-8-x86_64"]='
+config_opts["dnf.conf"] += """
+[dci]
+name=Distributed CI - CentOS 7
+baseurl=https://packages.distributed-ci.io/repos/current/el/7/x86_64/
+gpgcheck=1
+gpgkey=https://packages.distributed-ci.io/RPM-GPG-KEY-distributedci
+enabled=1
+
+[dci-extras]
+name=Distributed CI - Extras - CentOS 7
+baseurl=http://packages.distributed-ci.io/repos/extras/el/7/x86_64/
+gpgcheck=0
+enabled=0
+
+[centos-openstack-train]
+name=CentOS-8 - OpenStack Train
+baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-rocky/
+gpgcheck=1
+enabled=0
+gpgkey=https://raw.githubusercontent.com/rdo-infra/rdo-release/train-rdo/RPM-GPG-KEY-CentOS-SIG-Cloud
+"""
+'
+
+repo_conf["misc"]='
+config_opts["use_host_resolv"] = False
+config_opts["files"]["etc/hosts"] = """
+127.0.0.1 pypi.python.org
+"""
+config_opts["nosync"] = True
+'
+
+# Project specific settings. Needs to be overrided
+repo_conf["project_specific"]='
+'
+
