@@ -79,7 +79,7 @@ config_opts["plugin_conf"]["bind_mount_opts"]["dirs"].append(("'$PATH_TO_REPO'",
     cp /etc/mock/${arch}.cfg ${HOME}/.mock/${arch}-with-extras.cfg
     sed -i '$ d' ${HOME}/.mock/${arch}-with-extras.cfg
     cat <<EOF >> ${HOME}/.mock/${arch}-with-extras.cfg
-${repo_conf[${arch}]}
+${repo_conf[repo]}
 """
 ${repo_conf[gpg_signature]}
 ${repo_conf[misc]}
@@ -111,7 +111,7 @@ config_opts["plugin_conf"]["bind_mount_opts"]["dirs"].append(("'$PATH_TO_REPO'",
     cat <<EOF > ${HOME}/.mock/${arch}-with-extras.cfg
 ${repo_conf[header]}
 
-${repo_conf[${arch}]}
+${repo_conf[repo]}
 ${repo_conf[misc]}
 ${repo_conf[project_specific]}
 
@@ -128,7 +128,7 @@ function generate_mock_profile() {
     VERSION_ID=$(awk -F'=' '/^VERSION_ID=/ { print $2 }' /etc/os-release)
 
     mkdir -p ${HOME}/.mock
-    if [[ ( "${PLATFORM//\"}" == rhel || "${PLATFORM//\"}" == centos ) ]] && (( ${VERSION_ID//\"} < 9 )); then
+    if [[ ( "${PLATFORM//\"}" == rhel || "${PLATFORM//\"}" == centos ) ]] && (( ${VERSION_ID//\"} < 9 )) && [[ "${arch}" == "epel-7-x86_64" ]]; then
         generate_mock_profile_v1
     else
         generate_mock_profile_v2

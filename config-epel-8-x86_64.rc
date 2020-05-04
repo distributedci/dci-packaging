@@ -5,7 +5,7 @@ include('templates/centos-8.tpl')
 include('templates/epel-8.tpl')
 "
 
-repo_conf["epel-8-x86_64"]='
+repo_conf["repo"]='
 config_opts["dnf.conf"] += """
 [dci]
 name=Distributed CI - CentOS 7
