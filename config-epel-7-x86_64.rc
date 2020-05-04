@@ -4,7 +4,7 @@ repo_conf["header"]="
 include('templates/epel-7.tpl')
 "
 
-repo_conf["epel-7-x86_64"]='
+repo_conf["repo"]='
 config_opts["yum.conf"] += """
 [dci]
 name=Distributed CI - CentOS 7
