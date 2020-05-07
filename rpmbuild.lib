@@ -139,7 +139,10 @@ function generate_mock_profile() {
 function setup_build() {
     # Create the proper filesystem hierarchy to proceed with srpm creatioon
     #
-    rm -rf ${HOME}/rpmbuild && mock -r${HOME}/.mock/${arch}-with-extras.cfg --clean
+    echo "====== Mock configuration ======"
+    cat ${HOME}/.mock/${arch}-with-extras.cfg
+    echo "================================"
+    rm -rf ${HOME}/rpmbuild && mock $MOCKOPTS --clean
     rpmdev-setuptree
 }
 
