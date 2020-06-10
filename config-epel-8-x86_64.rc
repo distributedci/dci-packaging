@@ -16,6 +16,7 @@ assumeyes=1
 syslog_ident=mock
 syslog_device=
 metadata_expire=3600
+max_parallel_downloads=12
 mdpolicy=group:primary
 best=1
 protected_packages=
@@ -129,7 +130,7 @@ include("/etc/mock/templates/epel-8.tpl")
 '
 
 repo_conf["repo"]='
-config_opts["yum.conf"] += """
+config_opts["dnf.conf"] += """
 [dci]
 name=Distributed CI - CentOS 7
 baseurl=https://packages.distributed-ci.io/repos/current/el/7/x86_64/
