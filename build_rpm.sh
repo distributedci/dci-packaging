@@ -24,7 +24,7 @@ rpath=$(echo ${arch}|sed s,-,/,g|sed 's,epel,el,')
 with_args=""
 basedir=$PWD
 
-MOCKOPTS="-r ${HOME}/.mock/${arch}-with-extras.cfg"
+MOCKOPTS="-r ${HOME}/.mock/${arch}-with-extras.cfg --no-bootstrap-chroot"
 
 generate_mock_profile
 setup_build
