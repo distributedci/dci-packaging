@@ -132,21 +132,21 @@ include("/etc/mock/templates/epel-8.tpl")
 repo_conf["repo"]='
 config_opts["dnf.conf"] += """
 [dci]
-name=Distributed CI - CentOS 7
-baseurl=https://packages.distributed-ci.io/repos/current/el/7/x86_64/
-gpgcheck=1
+name=Distributed CI - CentOS 8
+baseurl=https://packages.distributed-ci.io/repos/current/el/8/x86_64/
+gpgcheck=0
 gpgkey=https://packages.distributed-ci.io/RPM-GPG-KEY-distributedci
 enabled=1
 
 [dci-extras]
-name=Distributed CI - Extras - CentOS 7
-baseurl=http://packages.distributed-ci.io/repos/extras/el/7/x86_64/
+name=Distributed CI - Extras - CentOS 8
+baseurl=http://packages.distributed-ci.io/repos/extras/el/8/x86_64/
 gpgcheck=0
 enabled=0
 
 [centos-openstack-train]
 name=CentOS-8 - OpenStack Train
-baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-rocky/
+baseurl=http://mirror.centos.org/centos/8/cloud/$basearch/openstack-train/
 gpgcheck=1
 enabled=0
 gpgkey=https://raw.githubusercontent.com/rdo-infra/rdo-release/train-rdo/RPM-GPG-KEY-CentOS-SIG-Cloud
