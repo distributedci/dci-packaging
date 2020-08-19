@@ -1,5 +1,12 @@
 #/bin/bash
 
+function cleanup() {
+    rm -rf ${TOPDIR}
+}
+
+TOPDIR=$(mktemp -d)
+mkdir ${TOPDIR}/SPECS ${TOPDIR}/SOURCES ${TOPDIR}/SRPMS
+trap cleanup 0
 
 function set_rdo_cloud_mirror() {
     cfg_file=$1
@@ -38,6 +45,7 @@ ${repo_conf[project_specific]}
 config_opts['root'] = '${arch}'
 config_opts['target_arch'] = 'x86_64'
 config_opts['legal_host_arches'] = ('x86_64',)
+config_opts['dnf_warning'] = False
 EOF
 }
 
@@ -47,8 +55,7 @@ function setup_build() {
     echo "====== Mock configuration ======"
     cat ${HOME}/.mock/${arch}-with-extras.cfg
     echo "================================"
-    rm -rf ${HOME}/rpmbuild && mock $MOCKOPTS --clean
-    rpmdev-setuptree
+    mock $MOCKOPTS --clean
 }
 
 
@@ -69,7 +76,7 @@ function generate_srpm() {
         fi
     fi
 
-    cp ${PROJ_NAME}.spec ${HOME}/rpmbuild/SPECS/
+    cp ${PROJ_NAME}.spec ${TOPDIR}/SPECS/
 
     DATE=$(date --utc +%Y%m%d%H%M)
     SHA=$(git rev-parse HEAD | cut -c1-8)
@@ -84,39 +91,39 @@ function generate_srpm() {
         mock $MOCKOPTS --chroot "cd /var/tmp/pkgsrc && python2 setup.py sdist"
         mock $MOCKOPTS --copyout /var/tmp/pkgsrc/dist ./dist
         mock $MOCKOPTS --clean
-        cp -v dist/* ${HOME}/rpmbuild/SOURCES/
+        cp -v dist/* ${TOPDIR}/SOURCES/
         if [[ -d contrib/systemd ]]; then
-            cp -v contrib/systemd/* ${HOME}/rpmbuild/SOURCES/
+            cp -v contrib/systemd/* ${TOPDIR}/SOURCES/
         fi
     else
-        VERS=$(rpmspec -q --qf "%{version}\n" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec|head -n1 2>/dev/null)
+        VERS=$(rpmspec -q --qf "%{version}\n" ${TOPDIR}/SPECS/${PROJ_NAME}.spec|head -n1 2>/dev/null)
         VERS=$(echo $VERS | sed "s/VERS/${DATE}git${SHA}/g")
         if [[ "$PROJ_NAME" == "dci-doc" ]]; then
             ./build.sh
             cp -r docs ${PROJ_NAME}-${VERS}
             tar -czvf ${PROJ_NAME}-${VERS}.tar.gz ${PROJ_NAME}-${VERS}
-            mv ${PROJ_NAME}-${VERS}.tar.gz ${HOME}/rpmbuild/SOURCES/
+            mv ${PROJ_NAME}-${VERS}.tar.gz ${TOPDIR}/SOURCES/
         elif [[ -n "${IS_DISTGIT}" ]]; then
-            spectool -g ${PROJ_NAME}.spec -C ${HOME}/rpmbuild/SOURCES/
+            spectool -g ${PROJ_NAME}.spec -C ${TOPDIR}/SOURCES/
             # FIXME(hguemar): just copy sources and patches listed in spec file
             GLOBIGNORE=${PROJ_NAME}.spec
-            cp -r * ${HOME}/rpmbuild/SOURCES/
+            cp -r * ${TOPDIR}/SOURCES/
         else
-            git archive HEAD --format=tgz --output=${HOME}/rpmbuild/SOURCES/${PROJ_NAME}-${VERS}.tar.gz
+            git archive HEAD --format=tgz --output=${TOPDIR}/SOURCES/${PROJ_NAME}-${VERS}.tar.gz
         fi
     fi
-    sed -i "s/VERS/${DATE}git${SHA}/g" ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec
+    sed -i "s/VERS/${DATE}git${SHA}/g" ${TOPDIR}/SPECS/${PROJ_NAME}.spec
 
     if [[ "$PROJ_NAME" == "dci-gpgpubkey" ]]; then
-        cp distributed-ci.pub ${HOME}/rpmbuild/SOURCES/
+        cp distributed-ci.pub ${TOPDIR}/SOURCES/
     fi
 
     SOURCES=""
-    for source in ${HOME}/rpmbuild/SOURCES/*; do
+    for source in ${TOPDIR}/SOURCES/*; do
         SOURCES+=" --sources=$source"
     done
 
-    mock $MOCKOPTS --buildsrpm --spec ${HOME}/rpmbuild/SPECS/${PROJ_NAME}.spec $SOURCES --resultdir=${HOME}/rpmbuild/SRPMS/
+    mock $MOCKOPTS --buildsrpm --spec ${TOPDIR}/SPECS/${PROJ_NAME}.spec $SOURCES --resultdir=${TOPDIR}/SRPMS/
 }
 
 
