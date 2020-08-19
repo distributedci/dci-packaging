@@ -30,7 +30,7 @@ generate_mock_profile
 setup_build
 mock $MOCKOPTS --init
 
-pushd ${PATH_TO_PROJ}
+cd ${PATH_TO_PROJ}
 
 generate_srpm
 # Use a TTL=4 to evaluate the distance between the host the mirror
@@ -38,6 +38,4 @@ ping -c 2 -t 4 -W 1 ${RDO_CLOUD_MIRROR} && set_rdo_cloud_mirror ${HOME}/.mock/${
 setup_additional_repos
 # Build the RPMs in a clean chroot environment with mock to detect missing
 # BuildRequires lines.
-mock $MOCKOPTS rebuild --resultdir=${WORKSPACE}/${rpath} ${HOME}/rpmbuild/SRPMS/*.src.rpm 2>&1
-
-popd
+mock $MOCKOPTS rebuild --resultdir=${WORKSPACE}/${rpath} ${TOPDIR}/SRPMS/*.src.rpm 2>&1
