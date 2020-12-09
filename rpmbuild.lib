@@ -132,7 +132,7 @@ setup_additional_repos() {
     REQUIRES_EXTRAS="dci-control-server"
 
     if [[ "$REQUIRES_SCL" =~ (^|[[:space:]])"$PROJ_NAME"($|[[:space:]]) && "$arch" == "epel-7-x86_64" ]]; then
-        MOCKOPTS+=" --enablerepo centos-sclo-rh"
+        MOCKOPTS+=" --enablerepo centos-sclo-rh-for-dci"
     fi
 
     if [[ "$REQUIRES_EXTRAS" =~ (^|[[:space:]])"$PROJ_NAME"($|[[:space:]]) ]]; then

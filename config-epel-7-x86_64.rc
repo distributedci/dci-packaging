@@ -19,8 +19,8 @@ baseurl=http://packages.distributed-ci.io/repos/extras/el/7/x86_64/
 gpgcheck=0
 enabled=0
 
-[centos-sclo-rh]
-name=CentOS-7 - SCLo rh
+[centos-sclo-rh-for-dci]
+name=CentOS-7 - SCLo rh - for DCI
 baseurl=http://mirror.centos.org/centos/7/sclo/$basearch/rh/
 gpgcheck=1
 enabled=0
