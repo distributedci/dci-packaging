@@ -158,7 +158,6 @@ config_opts["use_host_resolv"] = False
 config_opts["files"]["etc/hosts"] = """
 127.0.0.1 pypi.python.org
 """
-config_opts["nosync_force"] = True
 '
 
 # Project specific settings. Needs to be overrided
