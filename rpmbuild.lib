@@ -100,7 +100,7 @@ function generate_srpm() {
         VERS=$(echo $VERS | sed "s/VERS/${DATE}git${SHA}/g")
         if [[ "$PROJ_NAME" == "dci-doc" ]]; then
             ./build.sh
-            cp -r docs ${PROJ_NAME}-${VERS}
+            cp -r site ${PROJ_NAME}-${VERS}
             tar -czvf ${PROJ_NAME}-${VERS}.tar.gz ${PROJ_NAME}-${VERS}
             mv ${PROJ_NAME}-${VERS}.tar.gz ${TOPDIR}/SOURCES/
         elif [[ -n "${IS_DISTGIT}" ]]; then
