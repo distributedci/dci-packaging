@@ -142,7 +142,7 @@ setup_additional_repos() {
                 MOCKOPTS+=" --enablerepo centos-openstack-rocky"
                 ;;
             "epel-8-x86_64")
-                MOCKOPTS+=" --enablerepo centos-openstack-train"
+                MOCKOPTS+=" --enablerepo centos-openstack-ussuri"
                 ;;
             *)
                 ;;
