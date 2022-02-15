@@ -1,6 +1,7 @@
 declare -A repo_conf
 
 repo_conf["header"]="
+include('templates/centos-7.tpl')
 include('templates/epel-7.tpl')
 "
 
