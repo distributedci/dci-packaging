@@ -5,7 +5,7 @@ include('templates/epel-7.tpl')
 "
 
 repo_conf["repo"]='
-config_opts["yum.conf"] += """
+config_opts["dnf.conf"] += """
 [dci]
 name=Distributed CI - CentOS 7
 baseurl=https://packages.distributed-ci.io/repos/current/el/7/x86_64/
