@@ -18,9 +18,9 @@ function set_rdo_cloud_mirror() {
 function generate_mock_profile() {
     source $basedir/config-${arch}.rc
 
-    # Note: Need to contact the npm registry to retrieve
-    #       the npm modules.
-    if [[ "$PROJ_NAME" == "dci-ui" ]]; then
+    # Note: Need to contact the npm registry to retrieve the npm modules
+    # or pypi to retrieve python modules
+    if [[ "$PROJ_NAME" == "dci-ui" || "$PROJ_NAME" == "dci-blog" ]]; then
         repo_conf["project_specific"]='
 config_opts["use_host_resolv"] = True
 config_opts["rpmbuild_networking"] = True
