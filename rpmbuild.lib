@@ -16,6 +16,8 @@ function set_rdo_cloud_mirror() {
 }
 
 function generate_mock_profile() {
+    local cfg
+    cfg=${HOME}/.mock/${arch}-with-extras.cfg
     source $basedir/config-${arch}.rc
 
     # Note: Need to contact the npm registry to retrieve the npm modules
@@ -35,7 +37,7 @@ config_opts["plugin_conf"]["bind_mount_opts"]["dirs"].append(("'$PATH_TO_REPO'",
     fi
 
     mkdir -p ${HOME}/.mock
-    cat <<EOF > ${HOME}/.mock/${arch}-with-extras.cfg
+    cat <<EOF > $cfg.new
 ${repo_conf[header]}
 
 ${repo_conf[repo]}
@@ -47,6 +49,9 @@ config_opts['target_arch'] = 'x86_64'
 config_opts['legal_host_arches'] = ('x86_64',)
 config_opts['dnf_warning'] = False
 EOF
+    if [ ! -r $cfg ] || ! cmp $cfg $cfg.new; then
+        mv $cfg.new $cfg
+    fi
 }
 
 function setup_build() {
