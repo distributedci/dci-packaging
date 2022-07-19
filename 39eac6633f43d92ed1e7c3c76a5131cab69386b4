@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d15381a8_14eda9e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 673
+      },
+      "writtenOn": "2022-07-19T14:47:20Z",
+      "side": 1,
+      "message": "Hi! I have opened a CR which is basically the same just after yours ^^\nI\u0027ll close mine and and +1 on yours\nAlso, do you think it could be a good idea to update build_rpm.sh Line 22 to the new version by default?\n",
+      "revId": "39eac6633f43d92ed1e7c3c76a5131cab69386b4",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    }
+  ]
+}
