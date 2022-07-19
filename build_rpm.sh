@@ -19,7 +19,7 @@ fi
 WORKSPACE='current'
 RDO_CLOUD_MIRROR='mirror.regionone.rdo-cloud.rdoproject.org'
 
-arch="${3:-epel-7-x86_64}"
+arch="${3:-epel-8-x86_64}"
 rpath=$(echo ${arch}|sed s,-,/,g|sed 's,epel,el,')
 with_args=""
 basedir=$PWD
