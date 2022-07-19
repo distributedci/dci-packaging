@@ -149,6 +149,9 @@ setup_additional_repos() {
             "epel-8-x86_64")
                 MOCKOPTS+=" --enablerepo centos-openstack-ussuri"
                 ;;
+	    "epel-9-x86_64")
+                MOCKOPTS+=" --enablerepo centos-openstack-yoga"
+                ;;
             *)
                 ;;
         esac
