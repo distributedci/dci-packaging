@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69921aa7_e030113c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 673
+      },
+      "writtenOn": "2022-07-21T14:52:47Z",
+      "side": 1,
+      "message": "hum even with this patch, I still see an error related to a missing GPG key for ansible-2.9.9-2",
+      "revId": "5bfec6096783bbb4a137ab3f152c1ecb8684e13b",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    }
+  ]
+}
