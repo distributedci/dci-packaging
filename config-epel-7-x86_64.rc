@@ -33,6 +33,13 @@ baseurl=http://mirror.centos.org/centos/7/cloud/$basearch/openstack-rocky/
 gpgcheck=1
 enabled=0
 gpgkey=https://raw.githubusercontent.com/rdo-infra/rdo-release/rocky-rdo/RPM-GPG-KEY-CentOS-SIG-Cloud
+
+[centos-ansible-29]
+name=CentOS Configmanagement SIG - ansible-29
+mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=configmanagement-ansible-29
+#baseurl=http://mirror.centos.org/$contentdir/$releasever/configmanagement/$basearch/ansible-29/
+gpgcheck=0
+enabled=1
 """
 '
 
