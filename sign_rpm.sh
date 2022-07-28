@@ -13,12 +13,6 @@ while (( "$#" )); do
     PKG="$1"
     [ -f "$PKG" ] || { echo "$PKG: not a file"; exit 1; }
     echo "Signing ${PKG}"
-    expect <<EOF
-set timeout 300
-spawn rpm --addsign ${PKG}
-expect "Enter pass phrase: "
-send -- "\r"
-expect eof
-EOF
+    rpm --addsign ${PKG}
     shift
 done
