@@ -91,9 +91,17 @@ function generate_srpm() {
         MOCKDIR=${MOCKDIR%/}
         mkdir $MOCKDIR/var/tmp/pkgsrc
         cp -pr . $MOCKDIR/var/tmp/pkgsrc
-        PYTHON_INTERPRETERS="python2 python2-devel python2-setuptools python36 python36-devel"
+        if [[ "$arch" == "epel-9-x86_64" ]]; then
+            PYTHON_INTERPRETERS="python3 python3-devel"
+        else
+            PYTHON_INTERPRETERS="python2 python2-devel python2-setuptools python36 python36-devel"
+        fi
         mock $MOCKOPTS --install $PYTHON_INTERPRETERS
-        mock $MOCKOPTS --chroot "cd /var/tmp/pkgsrc && python2 setup.py sdist"
+        if [[ "$arch" == "epel-9-x86_64" ]]; then
+            mock $MOCKOPTS --chroot "cd /var/tmp/pkgsrc && python setup.py sdist"
+        else
+            mock $MOCKOPTS --chroot "cd /var/tmp/pkgsrc && python2 setup.py sdist"
+        fi
         mock $MOCKOPTS --copyout /var/tmp/pkgsrc/dist ./dist
         mock $MOCKOPTS --clean
         cp -v dist/* ${TOPDIR}/SOURCES/
