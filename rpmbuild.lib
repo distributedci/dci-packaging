@@ -149,16 +149,14 @@ setup_additional_repos() {
     fi
 
     if [[ "$REQUIRES_EXTRAS" =~ (^|[[:space:]])"$PROJ_NAME"($|[[:space:]]) ]]; then
-        MOCKOPTS+=" --enablerepo dci-extras"
         case $arch in
             "epel-7-x86_64")
+                MOCKOPTS+=" --enablerepo dci-extras"
                 MOCKOPTS+=" --enablerepo centos-openstack-rocky"
                 ;;
             "epel-8-x86_64")
+                MOCKOPTS+=" --enablerepo dci-extras"
                 MOCKOPTS+=" --enablerepo centos-openstack-ussuri"
-                ;;
-	    "epel-9-x86_64")
-                MOCKOPTS+=" --enablerepo centos-openstack-yoga"
                 ;;
             *)
                 ;;
