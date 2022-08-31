@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20ad6d22_446efe4b",
+        "filename": "rpmbuild.lib",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 606
+      },
+      "writtenOn": "2022-08-31T14:11:30Z",
+      "side": 1,
+      "message": "I think you can remove this line no?",
+      "revId": "7508b5935862aee378c97356569d0bc8b5a8cc92",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    }
+  ]
+}
