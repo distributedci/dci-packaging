@@ -142,7 +142,7 @@ function generate_srpm() {
 
 setup_additional_repos() {
     REQUIRES_SCL="dci-control-server python-dciclient dci-ui"
-    REQUIRES_EXTRAS="dci-control-server"
+    REQUIRES_EXTRAS=""
 
     if [[ "$REQUIRES_SCL" =~ (^|[[:space:]])"$PROJ_NAME"($|[[:space:]]) && "$arch" == "epel-7-x86_64" ]]; then
         MOCKOPTS+=" --enablerepo centos-sclo-rh-for-dci"
