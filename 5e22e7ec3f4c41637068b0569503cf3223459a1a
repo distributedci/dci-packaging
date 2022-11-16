@@ -16,6 +16,23 @@
       "message": "recheck",
       "revId": "5e22e7ec3f4c41637068b0569503cf3223459a1a",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37275609_52c6e3ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 166
+      },
+      "writtenOn": "2022-11-16T16:13:40Z",
+      "side": 1,
+      "message": "EL9 failures need to be fixed in packages themselves",
+      "revId": "5e22e7ec3f4c41637068b0569503cf3223459a1a",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
   ]
 }
