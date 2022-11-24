@@ -1,0 +1,9 @@
+Code-Review+2: Haïkel Guémar <hguemar@fedoraproject.org>
+Code-Review+1: François Charlier <francois.charlier@redhat.com>
+Workflow+1: François Charlier <francois.charlier@redhat.com>
+Verified+2: Zuul CI <zuul@softwarefactory-project.io>
+Submitted-by: Zuul CI <zuul@softwarefactory-project.io>
+Submitted-at: Thu, 24 Nov 2022 21:04:23 +0000
+Reviewed-on: https://softwarefactory-project.io/r/c/dci-packaging/+/26802
+Project: dci-packaging
+Branch: refs/heads/master
