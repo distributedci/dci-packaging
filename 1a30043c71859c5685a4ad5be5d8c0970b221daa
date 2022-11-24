@@ -16,6 +16,23 @@
       "message": "recheck",
       "revId": "1a30043c71859c5685a4ad5be5d8c0970b221daa",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0198fe0_bedb70e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 28
+      },
+      "writtenOn": "2022-11-24T20:06:10Z",
+      "side": 1,
+      "message": "Failed builds for EL9 are:\n- dci-openstack agent (expected)\n- dci-feeder-api (expected)\n- dci-ui (known issue)",
+      "revId": "1a30043c71859c5685a4ad5be5d8c0970b221daa",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
   ]
 }
