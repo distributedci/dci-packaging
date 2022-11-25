@@ -12,12 +12,14 @@ while (( "$#" )); do
     [ -f "$PKG" ] || { echo "$PKG: not a file"; exit 1; }
     echo "Signing ${PKG}"
 
+    set +e
     rpm -qi "${PKG}" | egrep -qs "Release\s+:.*\.el9$"
     if [ $? -eq 0 ]; then
         KEY="Distributed-CI EL9 <distributed-ci@redhat.com>"
     else
         KEY="Distributed-CI <distributed-ci@redhat.com>"
     fi
+    set -e
 
     echo "Using key '${KEY}'"
     echo '%_signature gpg' > ~/.rpmmacros
