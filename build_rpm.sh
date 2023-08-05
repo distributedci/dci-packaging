@@ -9,7 +9,7 @@ if [[ "$#" -lt 2 ]]; then
 fi
 
 PATH_TO_PROJ=$1
-PROJ_NAME=$2
+PROJ_NAME=$(basename $PATH_TO_PROJ/*.spec .spec)
 if [[ "$#" == 4 ]]; then
     PATH_TO_REPO=$4
 else
