@@ -3,23 +3,27 @@ set -eux
 
 source ./rpmbuild.lib
 
-if [[ "$#" -lt 2 ]]; then
-    echo "USAGE: ./build_rpm.sh <PATH_TO_PROJ> <PROJ_NAME> [<PATH_TO_REPO>]"
+if [[ "$#" -lt 1 ]]; then
+    echo "Usage: ./build_rpm.sh <PATH_TO_PROJ> [<ARCH> [<PATH_TO_REPO>]]"
+    echo "       <ARCH> default to epel-8-x86_64"
     exit 1
 fi
 
-PATH_TO_PROJ=$1
-PROJ_NAME=$2
-if [[ "$#" == 4 ]]; then
-    PATH_TO_REPO=$4
+PATH_TO_PROJ="$1"
+
+if [[ "$#" == 3 ]]; then
+    PATH_TO_REPO=$3
 else
     PATH_TO_REPO=""
 fi
 
+# We assume there is only one spec file per project
+PROJ_NAME=$(basename $PATH_TO_PROJ/*.spec .spec)
+
 WORKSPACE='current'
 RDO_CLOUD_MIRROR='mirror.regionone.rdo-cloud.rdoproject.org'
 
-arch="${3:-epel-8-x86_64}"
+arch="${2:-epel-8-x86_64}"
 rpath=$(echo ${arch}|sed s,-,/,g|sed 's,epel,el,')
 with_args=""
 basedir=$PWD
