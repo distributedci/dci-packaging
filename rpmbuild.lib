@@ -80,13 +80,22 @@ function generate_srpm() {
             exit 1
         fi
     fi
-
+    # Retrieve semantic version info for managed projects
+    if [[ -e VERSION ]]; then
+        SEMVER=$(cat VERSION | tr -d "[:space:]")
+    fi
     cp ${PROJ_NAME}.spec ${TOPDIR}/SPECS/
 
     DATE=$(date --utc +%Y%m%d%H%M)
     SHA=$(git rev-parse --short=8 HEAD)
     if [[ -e setup.py ]]; then
         rm -rf ./dist
+        # set version in version.py to be consistent with RPM
+        if [[ -v SEMVER ]]; then
+            find . -maxdepth 2 -type f \( -name "version.py" -o -name "setup.py" \) -exec \
+                 sed -i "s/SEMVER/${SEMVER}.dev0-${DATE}git${SHA}/" {} \;
+            sed -i "s/SEMVER/${SEMVER}/g" ${TOPDIR}/SPECS/${PROJ_NAME}.spec
+        fi
         MOCKDIR=$(mock $MOCKOPTS -p)
         MOCKDIR=${MOCKDIR%/}
         mkdir $MOCKDIR/var/tmp/pkgsrc
