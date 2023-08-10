@@ -87,6 +87,8 @@ function generate_srpm() {
     SHA=$(git rev-parse --short=8 HEAD)
     if [[ -e setup.py ]]; then
         rm -rf ./dist
+        # set version in version.py to be consistent with RPM
+        sed -i "s/__version__ = '\([0-9.]\+\)'/__version__ = '\1.dev0+${DATE}git${SHA}'/" */version.py
         MOCKDIR=$(mock $MOCKOPTS -p)
         MOCKDIR=${MOCKDIR%/}
         mkdir $MOCKDIR/var/tmp/pkgsrc
