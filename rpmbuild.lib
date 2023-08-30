@@ -15,6 +15,26 @@ function set_rdo_cloud_mirror() {
     sed -i "s#mirrorlist=http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=updates#baseurl=http://${RDO_CLOUD_MIRROR}/centos/7/updates/x86_64/#g" $cfg_file
 }
 
+function semver_check() {
+    # takes two versions strings to ensure there's no downgrade
+    # if version_1 >= version_2 returns 1 else -1
+    local version_1 version_2
+    version_1=($(echo $1 | tr "." " "))
+    version_2=($(echo $2 | tr "." " "))
+
+    pos=0
+    while [ $([ "${version_1[$pos]}" -eq "${version_2[$pos]}" ] &&  [ $pos -lt ${#version_1[@]} ] && echo true)  ]; do
+	pos=$((pos+1))
+    done
+    if [ "${version_1[$pos]}" -ge "${version_2[$pos]}" ]; then
+	echo "OK: Semantic versioning is going forward"
+	return 0
+    else
+	echo "KO: Semantic versioning is going backward"
+	exit 1
+    fi
+}
+
 function generate_mock_profile() {
     local cfg
     cfg=${HOME}/.mock/${arch}-with-extras.cfg
@@ -63,9 +83,9 @@ function setup_build() {
     mock $MOCKOPTS --clean
 }
 
-
 function generate_srpm() {
     IS_DISTGIT=""
+
     if [[ "$PROJ_NAME" == *-distgit ]]; then
         shopt -u nullglob
         IS_DISTGIT="true"
@@ -83,9 +103,14 @@ function generate_srpm() {
     # Retrieve semantic version info for managed projects
     if [[ -e VERSION ]]; then
 	SEMVER=$(cat VERSION | tr -d "[:space:]")
+	git cat-file blob HEAD~1:VERSION > VERSION.old
+	if [ $? -eq 0 ]; then
+	    SEMVER_OLD=$(cat VERSION.old | tr -d "[:space:]")
+	    semver_check $SEMVER $SEMVER_OLD
+	fi
 	sed -i "s/SEMVER/${SEMVER}/g" ${PROJ_NAME}.spec
-
     fi
+
     cp ${PROJ_NAME}.spec ${TOPDIR}/SPECS/
 
     DATE=$(date --utc +%Y%m%d%H%M)
@@ -94,10 +119,14 @@ function generate_srpm() {
         rm -rf ./dist
 	# set version in version.py to be consistent with RPM
 	if [[ -v SEMVER ]]; then
-	    sed -i "s/__version__ = ['\"]SEMVER['\"]/__version__ = '${SEMVER}.dev0+${DATE}git${SHA}'/" */version.py
+	    find . -type f \( -name "version.py" -o -name "setup.py" \) -exec \
+		 sed -i "s/__version__ = ['\"]SEMVER['\"]/__version__ = '${SEMVER}.dev0+${DATE}git${SHA}'/" {} \;
 	else
-            sed -i "s/__version__ = ['\"]\([0-9.]\+\)['\"]/__version__ = '\1.dev0+${DATE}git${SHA}'/" */version.py
+	    # Ensure that legacy projects still works properly
+            find . -type f \( -name "version.py" -o -name "setup.py" \) -exec \
+		 sed -i "s/__version__ = ['\"]\([0-9.]\+\)['\"]/__version__ = '\1.dev0+${DATE}git${SHA}'/" {} \;
 	fi
+
         MOCKDIR=$(mock $MOCKOPTS -p)
         MOCKDIR=${MOCKDIR%/}
         mkdir $MOCKDIR/var/tmp/pkgsrc
