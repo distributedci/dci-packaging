@@ -15,6 +15,26 @@ function set_rdo_cloud_mirror() {
     sed -i "s#mirrorlist=http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=updates#baseurl=http://${RDO_CLOUD_MIRROR}/centos/7/updates/x86_64/#g" $cfg_file
 }
 
+function semver_check() {
+    # takes two versions strings to ensure there's no downgrade
+    # if version_1 >= version_2 returns 1 else -1
+    local version_1 version_2
+    version_1=($(echo $1 | tr "." " "))
+    version_2=($(echo $2 | tr "." " "))
+
+    pos=0
+    while [ $([ "${version_1[$pos]}" -eq "${version_2[$pos]}" ] &&  [ $pos -lt ${#version_1[@]} ] && echo true)  ]; do
+	pos=$((pos+1))
+    done
+    if [ "${version_1[$pos]}" -ge "${version_2[$pos]}" ]; then
+	echo "OK: Semantic versioning is going forward"
+	return 0
+    else
+	echo "KO: Semantic versioning is going backward"
+	exit 1
+    fi
+}
+
 function generate_mock_profile() {
     local cfg
     cfg=${HOME}/.mock/${arch}-with-extras.cfg
@@ -83,6 +103,13 @@ function generate_srpm() {
     # Retrieve semantic version info for managed projects
     if [[ -e VERSION ]]; then
         SEMVER=$(cat VERSION | tr -d "[:space:]")
+        set +e
+        git cat-file blob HEAD~1:VERSION > VERSION.old
+        if [ $? -eq 0 ]; then
+            SEMVER_OLD=$(cat VERSION.old | tr -d "[:space:]")
+            semver_check $SEMVER $SEMVER_OLD
+        fi
+        set -e
     fi
     if [[ -v SEMVER ]]; then
         sed -i "s/SEMVER/${SEMVER}/g" ${PROJ_NAME}.spec
