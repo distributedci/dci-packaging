@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f34fe06_d58bd6da",
+        "filename": "rpmbuild.lib",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1440
+      },
+      "writtenOn": "2023-09-05T11:30:19Z",
+      "side": 1,
+      "message": "Can you separate the recovery of the value of the version (SEMVER), of the update of the various files ?\n\n    if [[ -e VERSION ]]; then\n\tSEMVER\u003d$(cat VERSION | tr -d \"[:space:]\")\n    fi\n\nand later\n\n    if [[ -v SEMVER ]]; then\n\n    ....\n    update spec file\n    update version.py\n    update setup.py\n    etc\n\n    fi\n\nLike that we will be able to push this patch right now and test on check on the other patches.\nAnd it will help to maintain this file (Separation of Concerns)",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 6
+      },
+      "revId": "5351e4955034bd18252b3ac7ec490391e520d550",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    }
+  ]
+}
