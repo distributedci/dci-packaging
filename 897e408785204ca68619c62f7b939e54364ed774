@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c1c2b9d_9de1c4aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1440
+      },
+      "writtenOn": "2023-09-05T11:31:48Z",
+      "side": 1,
+      "message": "Why this one is separated from \n\nhttps://softwarefactory-project.io/r/c/dci-packaging/+/29097/\n\nis it possible to merge the previous one please ?\n\nit will be easier to review\n\nSame you can check if version are similar if SEMVER_OLD is defined.",
+      "revId": "897e408785204ca68619c62f7b939e54364ed774",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    }
+  ]
+}
