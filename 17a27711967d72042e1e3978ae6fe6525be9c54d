@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80e1045c_6098ae46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1440
+      },
+      "writtenOn": "2023-09-05T11:40:28Z",
+      "side": 1,
+      "message": "I think we can simplify this by describing just how the spec file should be written (with SEMVER. string, how python module should be written (SERMVER) in a version.py file and the content of the VERSION file.\n\nThe how/workflow is not really interesting. The code will change, it\u0027s implementation details",
+      "revId": "17a27711967d72042e1e3978ae6fe6525be9c54d",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    }
+  ]
+}
