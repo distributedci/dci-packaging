@@ -80,13 +80,24 @@ function generate_srpm() {
             exit 1
         fi
     fi
-
+    # Retrieve semantic version info for managed projects
+    if [[ -e VERSION ]]; then
+        SEMVER=$(cat VERSION | tr -d "[:space:]")
+    fi
+    if [[ -v SEMVER ]]; then
+        sed -i "s/SEMVER/${SEMVER}/g" ${PROJ_NAME}.spec
+    fi
     cp ${PROJ_NAME}.spec ${TOPDIR}/SPECS/
 
     DATE=$(date --utc +%Y%m%d%H%M)
     SHA=$(git rev-parse --short=8 HEAD)
     if [[ -e setup.py ]]; then
         rm -rf ./dist
+        # set version in version.py to be consistent with RPM
+        if [[ -v SEMVER ]]; then
+            find . -type f \( -name "version.py" -o -name "setup.py" \) -exec \
+                 sed -i "s/__version__ = ['\"]SEMVER['\"]/__version__ = '${SEMVER}.dev0+${DATE}git${SHA}'/" {} \;
+        fi
         MOCKDIR=$(mock $MOCKOPTS -p)
         MOCKDIR=${MOCKDIR%/}
         mkdir $MOCKDIR/var/tmp/pkgsrc
@@ -135,7 +146,7 @@ function generate_srpm() {
     for source in ${TOPDIR}/SOURCES/*; do
         SOURCES+=" --sources=$source"
     done
-
+    cat ${TOPDIR}/SPECS/${PROJ_NAME}.spec
     mock $MOCKOPTS --buildsrpm --spec ${TOPDIR}/SPECS/${PROJ_NAME}.spec $SOURCES --resultdir=${TOPDIR}/SRPMS/
 }
 
