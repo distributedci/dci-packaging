@@ -84,6 +84,46 @@
       "message": "recheck",
       "revId": "71701c43bd55c182f8f1446e61bcb63053433ce9",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "490bc8dc_4664b5a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1440
+      },
+      "writtenOn": "2023-09-18T10:32:57Z",
+      "side": 1,
+      "message": "If possible, it would be good to wait for a +1 or +2 from a team member when hitting important project.",
+      "revId": "71701c43bd55c182f8f1446e61bcb63053433ce9",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c12c453c_e3e3f35b",
+        "filename": "rpmbuild.lib",
+        "patchSetId": 12
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1440
+      },
+      "writtenOn": "2023-09-18T10:32:57Z",
+      "side": 1,
+      "message": "I\u0027m wondering if this should be line 98.\nWe would like to edit the spec file only for python module no ?",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 6
+      },
+      "revId": "71701c43bd55c182f8f1446e61bcb63053433ce9",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
   ]
 }
