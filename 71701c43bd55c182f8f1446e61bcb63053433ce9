@@ -141,6 +141,30 @@
       },
       "revId": "71701c43bd55c182f8f1446e61bcb63053433ce9",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a82d123c_19b8d1df",
+        "filename": "rpmbuild.lib",
+        "patchSetId": 12
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 166
+      },
+      "writtenOn": "2023-09-21T09:56:01Z",
+      "side": 1,
+      "message": "I\u0027m fine with both, I did it here to avoid forgetting patching the spec file.\nChanged in next patchset :)",
+      "parentUuid": "c12c453c_e3e3f35b",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 6
+      },
+      "revId": "71701c43bd55c182f8f1446e61bcb63053433ce9",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
   ]
 }

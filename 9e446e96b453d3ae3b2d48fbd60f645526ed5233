@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5396e10_3b331c0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 166
+      },
+      "writtenOn": "2023-09-21T09:56:01Z",
+      "side": 1,
+      "message": "recheck\n\n[MIRROR] python3-importlib-metadata-1.7.0-1.el8.noarch.rpm: Status code: 404 for http://mirror.centos.org/centos/8/configmanagement/x86_64/ansible-29/Packages/p/python3-importlib-metadata-1.7.0-1.el8.noarch.rpm (IP: 162.251.108.7)",
+      "revId": "9e446e96b453d3ae3b2d48fbd60f645526ed5233",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    }
+  ]
+}
