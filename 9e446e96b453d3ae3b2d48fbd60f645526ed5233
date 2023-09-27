@@ -33,6 +33,24 @@
       "message": "Hello Haikel, I think this if it\u0027s not necessary.",
       "revId": "9e446e96b453d3ae3b2d48fbd60f645526ed5233",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a585a890_bd7878a1",
+        "filename": "rpmbuild.lib",
+        "patchSetId": 13
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 642
+      },
+      "writtenOn": "2023-09-27T13:54:24Z",
+      "side": 1,
+      "message": "I mean lines 97 and 98 are not necessary.",
+      "parentUuid": "d870b86b_3fcc3b01",
+      "revId": "9e446e96b453d3ae3b2d48fbd60f645526ed5233",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
   ]
 }
