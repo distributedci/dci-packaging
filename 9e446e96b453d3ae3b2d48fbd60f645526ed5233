@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "112686f8_07754c3e",
+        "filename": "rpmbuild.lib",
+        "patchSetId": 13
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 648
+      },
+      "writtenOn": "2023-09-27T16:02:10Z",
+      "side": 1,
+      "message": "this could potentially change *any* version.py or setup.py found within the current tree, could be dangerous with e.g. git submodules. It would be better to restrict to ./setup.py and 1 level of find version.py imo, or if you can figure out the static path to \u003cmodule dir\u003e/version.py that would work even better.",
+      "revId": "9e446e96b453d3ae3b2d48fbd60f645526ed5233",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d870b86b_3fcc3b01",
         "filename": "rpmbuild.lib",
         "patchSetId": 13
