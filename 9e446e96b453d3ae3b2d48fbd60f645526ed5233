@@ -52,6 +52,24 @@
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe1fd51a_057900d2",
+        "filename": "rpmbuild.lib",
+        "patchSetId": 13
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 166
+      },
+      "writtenOn": "2023-09-27T19:44:17Z",
+      "side": 1,
+      "message": "Ack, thanks !",
+      "parentUuid": "112686f8_07754c3e",
+      "revId": "9e446e96b453d3ae3b2d48fbd60f645526ed5233",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d870b86b_3fcc3b01",
