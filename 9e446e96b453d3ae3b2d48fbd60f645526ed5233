@@ -18,6 +18,23 @@
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b0b5f1d_2173e824",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 166
+      },
+      "writtenOn": "2023-09-27T15:27:55Z",
+      "side": 1,
+      "message": "Thank you :)",
+      "revId": "9e446e96b453d3ae3b2d48fbd60f645526ed5233",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d870b86b_3fcc3b01",
@@ -49,6 +66,24 @@
       "side": 1,
       "message": "I mean lines 97 and 98 are not necessary.",
       "parentUuid": "d870b86b_3fcc3b01",
+      "revId": "9e446e96b453d3ae3b2d48fbd60f645526ed5233",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2582af2e_8d73c179",
+        "filename": "rpmbuild.lib",
+        "patchSetId": 13
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 166
+      },
+      "writtenOn": "2023-09-27T15:27:55Z",
+      "side": 1,
+      "message": "Good catch, thanks !",
+      "parentUuid": "a585a890_bd7878a1",
       "revId": "9e446e96b453d3ae3b2d48fbd60f645526ed5233",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
