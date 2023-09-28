@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b8a6bb4_aab5a7b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1440
+      },
+      "writtenOn": "2023-09-28T13:38:10Z",
+      "side": 1,
+      "message": "can you reverse the depends-on?\nWe need to see the new rpm build in the check build command of all other projects.\nThis patch should not have depends-on. It should work with actual code.\nIt\u0027s the other patches that should have a depends-on this one",
+      "revId": "50f31a05ac93ca3627569dfb51abde50815ca11d",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    }
+  ]
+}
