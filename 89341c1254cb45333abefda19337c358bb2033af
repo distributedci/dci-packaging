@@ -33,6 +33,24 @@
       "message": "maxdepth (global option) should be before type in the find command",
       "revId": "89341c1254cb45333abefda19337c358bb2033af",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46839fdb_29fdf4a6",
+        "filename": "rpmbuild.lib",
+        "patchSetId": 14
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 166
+      },
+      "writtenOn": "2023-09-28T13:15:33Z",
+      "side": 1,
+      "message": "Done, thanks for the feedback :)",
+      "parentUuid": "18055833_557d1136",
+      "revId": "89341c1254cb45333abefda19337c358bb2033af",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
   ]
 }
