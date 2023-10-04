@@ -16,6 +16,24 @@
       "message": "can you reverse the depends-on?\nWe need to see the new rpm build in the check build command of all other projects.\nThis patch should not have depends-on. It should work with actual code.\nIt\u0027s the other patches that should have a depends-on this one",
       "revId": "50f31a05ac93ca3627569dfb51abde50815ca11d",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a31797f7_cc1ad83b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 166
+      },
+      "writtenOn": "2023-10-04T13:38:05Z",
+      "side": 1,
+      "message": "\u003e can you reverse the depends-on?\n\u003e We need to see the new rpm build in the check build command of all other projects.\n\u003e This patch should not have depends-on. It should work with actual code.\n\u003e It\u0027s the other patches that should have a depends-on this one\n\nWithout the depends-on, you\u0027re not testing the change at all.",
+      "parentUuid": "0b8a6bb4_aab5a7b2",
+      "revId": "50f31a05ac93ca3627569dfb51abde50815ca11d",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
   ]
 }
