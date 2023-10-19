@@ -16,6 +16,23 @@
       "message": "All jobs are green now",
       "revId": "6af7358d853197ed9499680ef24a76b4449fddc8",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b3c23ea_ea015a35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 166
+      },
+      "writtenOn": "2023-10-19T12:15:36Z",
+      "side": 1,
+      "message": "recheck\n\nMirror failure:\n  python3-importlib-metadata-1.7.0-1.el8.noarch: Cannot download, all mirrors were already tried without success",
+      "revId": "6af7358d853197ed9499680ef24a76b4449fddc8",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
   ]
 }
