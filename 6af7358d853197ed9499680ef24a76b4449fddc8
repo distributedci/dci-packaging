@@ -1,0 +1,9 @@
+Code-Review+2: Haïkel Guémar <hguemar@fedoraproject.org>
+Verified+1: dci-ci-bot <dci-ci-bot@redhat.com>
+Workflow+1: Haïkel Guémar <hguemar@fedoraproject.org>
+Verified+2: Zuul CI <zuul@softwarefactory-project.io>
+Submitted-by: Zuul CI <zuul@softwarefactory-project.io>
+Submitted-at: Thu, 19 Oct 2023 13:01:47 +0000
+Reviewed-on: https://softwarefactory-project.io/r/c/dci-packaging/+/29097
+Project: dci-packaging
+Branch: refs/heads/master
