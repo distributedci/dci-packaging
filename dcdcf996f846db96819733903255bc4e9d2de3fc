@@ -16,6 +16,23 @@
       "message": "recheck",
       "revId": "dcdcf996f846db96819733903255bc4e9d2de3fc",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a817033_2ffdb7bb",
+        "filename": "sign_rpm.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 606
+      },
+      "writtenOn": "2023-10-20T15:50:03Z",
+      "side": 1,
+      "message": "why are we calling it 2024?",
+      "revId": "dcdcf996f846db96819733903255bc4e9d2de3fc",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
   ]
 }
