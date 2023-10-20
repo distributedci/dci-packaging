@@ -33,6 +33,24 @@
       "message": "why are we calling it 2024?",
       "revId": "dcdcf996f846db96819733903255bc4e9d2de3fc",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d1a14de_36f488a2",
+        "filename": "sign_rpm.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 28
+      },
+      "writtenOn": "2023-10-20T15:50:47Z",
+      "side": 1,
+      "message": "no idea, to be future-proof maybe ?",
+      "parentUuid": "2a817033_2ffdb7bb",
+      "revId": "dcdcf996f846db96819733903255bc4e9d2de3fc",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
   ]
 }
