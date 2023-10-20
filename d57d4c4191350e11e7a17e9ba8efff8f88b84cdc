@@ -16,6 +16,24 @@
       "message": "I think a g is missing to signin except of that LGTM",
       "revId": "d57d4c4191350e11e7a17e9ba8efff8f88b84cdc",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0757b72e_e9c3eb54",
+        "filename": "sign_rpm.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 28
+      },
+      "writtenOn": "2023-10-20T14:29:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23e63b02_e0fc3312",
+      "revId": "d57d4c4191350e11e7a17e9ba8efff8f88b84cdc",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
   ]
 }
