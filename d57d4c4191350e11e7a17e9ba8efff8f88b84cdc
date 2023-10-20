@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23e63b02_e0fc3312",
+        "filename": "sign_rpm.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 642
+      },
+      "writtenOn": "2023-10-20T14:17:58Z",
+      "side": 1,
+      "message": "I think a g is missing to signin except of that LGTM",
+      "revId": "d57d4c4191350e11e7a17e9ba8efff8f88b84cdc",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    }
+  ]
+}
