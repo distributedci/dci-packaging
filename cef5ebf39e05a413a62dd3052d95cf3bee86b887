@@ -1,0 +1,10 @@
+Code-Review+2: Guillaume Vincent <gvincent@redhat.com>
+Workflow+1: Bill Peck <bill@pecknet.com>
+Code-Review+2: Bill Peck <bill@pecknet.com>
+Verified+2: Zuul CI <zuul@softwarefactory-project.io>
+Workflow+1: Guillaume Vincent <gvincent@redhat.com>
+Submitted-by: Zuul CI <zuul@softwarefactory-project.io>
+Submitted-at: Tue, 31 Oct 2023 20:50:27 +0000
+Reviewed-on: https://softwarefactory-project.io/r/c/dci-packaging/+/29986
+Project: dci-packaging
+Branch: refs/heads/master
