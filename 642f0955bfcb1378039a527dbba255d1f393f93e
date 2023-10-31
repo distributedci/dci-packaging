@@ -34,6 +34,23 @@
       "parentUuid": "3e1d8b6b_03acb838",
       "revId": "642f0955bfcb1378039a527dbba255d1f393f93e",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caa67c4a_727f1874",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 648
+      },
+      "writtenOn": "2023-10-31T21:52:03Z",
+      "side": 1,
+      "message": "you want `git show -s --format\u003d%cd --date\u003d\u0027format:%Y%m%d%H%M\u0027 HEAD`",
+      "revId": "642f0955bfcb1378039a527dbba255d1f393f93e",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
   ]
 }
