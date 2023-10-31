@@ -55,7 +55,7 @@ EOF
 }
 
 function setup_build() {
-    # Create the proper filesystem hierarchy to proceed with srpm creatioon
+    # Create the proper filesystem hierarchy to proceed with srpm creation
     #
     echo "====== Mock configuration ======"
     cat ${HOME}/.mock/${arch}-with-extras.cfg
@@ -86,7 +86,8 @@ function generate_srpm() {
     fi
     cp ${PROJ_NAME}.spec ${TOPDIR}/SPECS/
 
-    DATE=$(date --utc +%Y%m%d%H%M)
+    CT=$(git show HEAD -s --format=%ct)
+    DATE=$(date --date=@${CT} '+%Y%m%d%H%M')
     SHA=$(git rev-parse --short=8 HEAD)
     if [[ -e setup.py ]]; then
         rm -rf ./dist
