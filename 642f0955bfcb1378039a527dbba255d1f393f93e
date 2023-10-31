@@ -16,6 +16,24 @@
       "message": "git show HEAD --no-patch --format\u003d%cd --date\u003dformat-local:%Y%m%d%H%M\nfatal: unknown date format format-local:%Y%m%d%H%M",
       "revId": "642f0955bfcb1378039a527dbba255d1f393f93e",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b339d48_ef8b169a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 667
+      },
+      "writtenOn": "2023-10-31T21:51:59Z",
+      "side": 1,
+      "message": "Argh! el7!! gotta need to find a supported command for that git version",
+      "parentUuid": "3e1d8b6b_03acb838",
+      "revId": "642f0955bfcb1378039a527dbba255d1f393f93e",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
   ]
 }
