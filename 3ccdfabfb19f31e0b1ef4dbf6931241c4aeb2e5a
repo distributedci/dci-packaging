@@ -33,6 +33,24 @@
       "message": "We are not building for EL7 anymore, I believe your initial implementation just had a typo you had `--date\u003dformat-local:...` it should\u0027ve been `--date\u003dformat:`",
       "revId": "3ccdfabfb19f31e0b1ef4dbf6931241c4aeb2e5a",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e44429a_375101fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 648
+      },
+      "writtenOn": "2023-11-01T00:19:36Z",
+      "side": 1,
+      "message": "my bad we\u0027re building for el7, but I feel like there was a typo still",
+      "parentUuid": "f6f99876_44237629",
+      "revId": "3ccdfabfb19f31e0b1ef4dbf6931241c4aeb2e5a",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
   ]
 }
