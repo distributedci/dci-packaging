@@ -102,6 +102,24 @@
       "message": "We should keep `--utc` to be sure we generate the same date/time whatever the timezone configuration is on the build system",
       "revId": "3ccdfabfb19f31e0b1ef4dbf6931241c4aeb2e5a",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee9bd5ce_fca22b89",
+        "filename": "rpmbuild.lib",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 667
+      },
+      "writtenOn": "2023-11-02T12:59:54Z",
+      "side": 1,
+      "message": "Ah, you\u0027re right, I had it and with the modification I missed it, it has been now added back, thanks!",
+      "parentUuid": "4efd8ce5_9672b80e",
+      "revId": "3ccdfabfb19f31e0b1ef4dbf6931241c4aeb2e5a",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
   ]
 }
