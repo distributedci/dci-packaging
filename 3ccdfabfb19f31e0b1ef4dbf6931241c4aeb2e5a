@@ -68,6 +68,40 @@
       "message": "recheck",
       "revId": "3ccdfabfb19f31e0b1ef4dbf6931241c4aeb2e5a",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5beed53e_0645d2db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 28
+      },
+      "writtenOn": "2023-11-02T10:20:20Z",
+      "side": 1,
+      "message": "see inline comment.\n\nvery good idea !",
+      "revId": "3ccdfabfb19f31e0b1ef4dbf6931241c4aeb2e5a",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4efd8ce5_9672b80e",
+        "filename": "rpmbuild.lib",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 28
+      },
+      "writtenOn": "2023-11-02T10:20:20Z",
+      "side": 1,
+      "message": "We should keep `--utc` to be sure we generate the same date/time whatever the timezone configuration is on the build system",
+      "revId": "3ccdfabfb19f31e0b1ef4dbf6931241c4aeb2e5a",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
   ]
 }
