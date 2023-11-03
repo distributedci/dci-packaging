@@ -1,0 +1,10 @@
+Workflow+1: Frederic Lepied <flepied@redhat.com>
+Code-Review+1: François Charlier <francois.charlier@redhat.com>
+Workflow+1: Tony Garcia <tonyg@redhat.com>
+Code-Review+2: Haïkel Guémar <hguemar@fedoraproject.org>
+Verified+2: Zuul CI <zuul@softwarefactory-project.io>
+Submitted-by: Zuul CI <zuul@softwarefactory-project.io>
+Submitted-at: Fri, 03 Nov 2023 18:02:14 +0000
+Reviewed-on: https://softwarefactory-project.io/r/c/dci-packaging/+/30000
+Project: dci-packaging
+Branch: refs/heads/master
