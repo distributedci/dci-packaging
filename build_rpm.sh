@@ -1,6 +1,8 @@
 #!/bin/bash
 set -eux
 
+DCI_PKG_DIR=$(cd $(dirname $0); pwd)
+
 source ./rpmbuild.lib
 
 if [[ "$#" -lt 1 ]]; then
