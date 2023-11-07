@@ -100,18 +100,20 @@ function generate_srpm() {
         fi
         MOCKDIR=$(mock $MOCKOPTS -p)
         MOCKDIR=${MOCKDIR%/}
-        mkdir $MOCKDIR/var/tmp/pkgsrc
+        mkdir $MOCKDIR/var/tmp/pkgsrc $MOCKDIR/var/tmp/dci-packaging
         cp -pr . $MOCKDIR/var/tmp/pkgsrc
+        cp -pr $DCI_PKG_DIR/*.py $MOCKDIR/var/tmp/dci-packaging/
+        ls $MOCKDIR/var/tmp
         if [[ "$arch" == "epel-9-x86_64" ]]; then
             PYTHON_INTERPRETERS="python3 python3-devel"
         else
             PYTHON_INTERPRETERS="python2 python2-devel python2-setuptools python36 python36-devel"
         fi
-        mock $MOCKOPTS --install $PYTHON_INTERPRETERS
+        mock $MOCKOPTS --install $PYTHON_INTERPRETERS git-core
         if [[ "$arch" == "epel-9-x86_64" ]]; then
-            mock $MOCKOPTS --chroot "cd /var/tmp/pkgsrc && python3 setup.py sdist"
+            mock $MOCKOPTS --chroot "cd /var/tmp/pkgsrc && git config --global --add safe.directory /var/tmp/pkgsrc && PYTHONPATH=../dci-packaging python3 setup.py sdist"
         else
-            mock $MOCKOPTS --chroot "cd /var/tmp/pkgsrc && python2 setup.py sdist"
+            mock $MOCKOPTS --chroot "cd /var/tmp/pkgsrc && git config --global --add safe.directory /var/tmp/pkgsrc && PYTHONPATH=../dci-packaging python2 setup.py sdist"
         fi
         mock $MOCKOPTS --copyout /var/tmp/pkgsrc/dist ./dist
         mock $MOCKOPTS --clean
