@@ -65,54 +65,33 @@ function setup_build() {
 
 
 function generate_srpm() {
-    IS_DISTGIT=""
-    if [[ "$PROJ_NAME" == *-distgit ]]; then
-        shopt -u nullglob
-        IS_DISTGIT="true"
-        SPECS=( *.spec )
-        if [[ ${#SPECS[@]} == 0 ]]; then
-            echo "ERROR: No spec file in repository"
-            exit 1
-        elif [[ ${#SPECS[@]} == 1 ]]; then
-            PROJ_NAME=${SPECS[0]//.spec}
-        else
-            echo "ERROR: Too many spec files in repository ($SPECS[@])"
-            exit 1
-        fi
-    fi
-    # Retrieve semantic version info for managed projects
-    if [[ -e VERSION ]]; then
-        SEMVER=$(cat VERSION | tr -d "[:space:]")
-    fi
     cp ${PROJ_NAME}.spec ${TOPDIR}/SPECS/
 
+    # keep these commands in sync with dcibuild.py
     CT=$(git show HEAD -s --format=%ct)
     DATE=$(date --utc --date=@${CT} '+%Y%m%d%H%M')
     SHA=$(git rev-parse --short=8 HEAD)
+
     if [[ -e setup.py ]]; then
         rm -rf ./dist
-        # set version in version.py to be consistent with RPM
-        if [[ -v SEMVER ]]; then
-            find . -maxdepth 2 -type f \( -name "version.py" -o -name "setup.py" \) -exec \
-                 sed -i "s/SEMVER/${SEMVER}.dev${DATE}/" {} \;
-            sed -i "s/SEMVER/${SEMVER}/g" ${TOPDIR}/SPECS/${PROJ_NAME}.spec
-            sed -i "s/DATE/${DATE}/g" ${TOPDIR}/SPECS/${PROJ_NAME}.spec
-        fi
         MOCKDIR=$(mock $MOCKOPTS -p)
         MOCKDIR=${MOCKDIR%/}
-        mkdir $MOCKDIR/var/tmp/pkgsrc
+        mkdir $MOCKDIR/var/tmp/pkgsrc $MOCKDIR/var/tmp/dci-packaging
         cp -pr . $MOCKDIR/var/tmp/pkgsrc
+        cp -pr $DCI_PKG_DIR/*.py $MOCKDIR/var/tmp/dci-packaging/
+        ls $MOCKDIR/var/tmp
         if [[ "$arch" == "epel-9-x86_64" ]]; then
             PYTHON_INTERPRETERS="python3 python3-devel"
         else
             PYTHON_INTERPRETERS="python2 python2-devel python2-setuptools python36 python36-devel"
         fi
-        mock $MOCKOPTS --install $PYTHON_INTERPRETERS
-        if [[ "$arch" == "epel-9-x86_64" ]]; then
-            mock $MOCKOPTS --chroot "cd /var/tmp/pkgsrc && python3 setup.py sdist"
+        mock $MOCKOPTS --install $PYTHON_INTERPRETERS git-core
+        if [[ "$arch" == "epel-7-x86_64" ]]; then
+            PYTHON=python2
         else
-            mock $MOCKOPTS --chroot "cd /var/tmp/pkgsrc && python2 setup.py sdist"
+            PYTHON=python3
         fi
+        mock $MOCKOPTS --chroot "cd /var/tmp/pkgsrc && git config --global --add safe.directory /var/tmp/pkgsrc && PYTHONPATH=../dci-packaging $PYTHON setup.py sdist"
         mock $MOCKOPTS --copyout /var/tmp/pkgsrc/dist ./dist
         mock $MOCKOPTS --clean
         cp -v dist/* ${TOPDIR}/SOURCES/
@@ -137,6 +116,7 @@ function generate_srpm() {
         fi
     fi
     sed -i "s/VERS/${DATE}git${SHA}/g" ${TOPDIR}/SPECS/${PROJ_NAME}.spec
+    sed -i "s/DATE/${DATE}/g" ${TOPDIR}/SPECS/${PROJ_NAME}.spec
 
     if [[ "$PROJ_NAME" == "dci-gpgpubkey" ]]; then
         cp distributed-ci.pub ${TOPDIR}/SOURCES/
