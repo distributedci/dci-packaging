@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88b7e997_c1b4c39a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 667
+      },
+      "writtenOn": "2023-11-09T17:37:09Z",
+      "side": 1,
+      "message": "LGTM\n\nnoticed an unrelated diff with the naming in https://softwarefactory-project.io/r/plugins/gitiles/ansible-role-beaker/+/refs/heads/master/ansible-role-beaker.spec#2\n\nI\u0027ll send a fix for that",
+      "revId": "59d18416e463dda60276289a5797429f2893da29",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    }
+  ]
+}
