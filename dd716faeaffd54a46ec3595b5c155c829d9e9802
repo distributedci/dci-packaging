@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e70078ab_1ac34f78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 166
+      },
+      "writtenOn": "2023-11-21T14:49:57Z",
+      "side": 1,
+      "message": "recheck\n\nEL8 job failed due to mirrors errors",
+      "revId": "dd716faeaffd54a46ec3595b5c155c829d9e9802",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    }
+  ]
+}
