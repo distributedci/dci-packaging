@@ -40,25 +40,30 @@ def extract_sha1():
 
 # keep these commands in sync with the ones in rpmbuild.lib
 def extract_date():
-    "Extract the date of the last commit"
-    ct = run_cmd("git show HEAD -s --format=%ct")
-    return run_cmd("date --utc -d @%s +%%Y%%m%%d%%H%%M" % ct)
+    "Extract the UNIX epoch and date of the last commit"
+    epoch = run_cmd("git show HEAD -s --format=%ct")
+    return epoch, run_cmd("date --utc -d @%s +%%Y%%m%%d%%H%%M" % epoch)
 
 
-def get_local_version():
+def get_local_version(epoch=None):
     "Return the version extracted from the .spec file like '0.0.1'"
     spec = [f for f in os.listdir(".") if f.endswith(".spec")][0]
     with open(spec) as f:
         content = f.read()
     res = re.search(r"^Version:\s*(\S+)\s*$", content, re.I | re.M)
-    return res.group(1)
+    local_version = res.group(1)
+    if "EPOCH" in local_version:
+        if epoch is None:
+            epoch, _ = extract_date()
+        return local_version.replace("EPOCH", epoch)
+    return local_version
 
 
 def get_version():
     "Return the version as computed from VERSION and git like '0.0.1.post201706261235'"
 
-    version = get_local_version()
-    date = extract_date()
+    epoch, date = extract_date()
+    version = get_local_version(epoch)
 
     return "%s.post%s" % (version, date)
 
