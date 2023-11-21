@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "deb8f399_5bc81a38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 166
+      },
+      "writtenOn": "2023-11-21T14:49:23Z",
+      "side": 1,
+      "message": "Patchset 4 is now ok",
+      "revId": "521702d2f5e53e60be5d15ec8f46a405f6a7c4c4",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    }
+  ]
+}
