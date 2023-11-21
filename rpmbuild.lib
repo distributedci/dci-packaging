@@ -69,6 +69,7 @@ function generate_srpm() {
 
     # keep these commands in sync with dcibuild.py
     CT=$(git show HEAD -s --format=%ct)
+    Z=$(TZ=UTC0 git show --no-patch --format=%cd --date=format-local:'%s')
     DATE=$(date --utc --date=@${CT} '+%Y%m%d%H%M')
     SHA=$(git rev-parse --short=8 HEAD)
 
@@ -100,7 +101,7 @@ function generate_srpm() {
         fi
     else
         VERS=$(rpmspec -q --qf "%{version}\n" ${TOPDIR}/SPECS/${PROJ_NAME}.spec|head -n1 2>/dev/null)
-        VERS=$(echo $VERS | sed "s/VERS/${DATE}git${SHA}/g")
+        VERS=$(echo $VERS | sed -e "s/EPOCH/${Z}/g" -e "s/VERS/${DATE}git${SHA}/g")
         if [[ "$PROJ_NAME" == "dci-doc" ]]; then
             ./build.sh
             cp -r docs ${PROJ_NAME}-${VERS}
@@ -112,6 +113,7 @@ function generate_srpm() {
     fi
     sed -i "s/VERS/${DATE}git${SHA}/g" ${TOPDIR}/SPECS/${PROJ_NAME}.spec
     sed -i "s/DATE/${DATE}/g" ${TOPDIR}/SPECS/${PROJ_NAME}.spec
+    sed -i "s/EPOCH/${Z}/g" ${TOPDIR}/SPECS/${PROJ_NAME}.spec
 
     if [[ "$PROJ_NAME" == "dci-gpgpubkey" ]]; then
         cp distributed-ci.pub ${TOPDIR}/SOURCES/
