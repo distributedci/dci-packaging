@@ -69,6 +69,7 @@ function generate_srpm() {
 
     # keep these commands in sync with dcibuild.py
     CT=$(git show HEAD -s --format=%ct)
+    Z=$(TZ=UTC0 git show --no-patch --format=%cd --date=format-local:'%s')
     DATE=$(date --utc --date=@${CT} '+%Y%m%d%H%M')
     SHA=$(git rev-parse --short=8 HEAD)
 
@@ -112,6 +113,7 @@ function generate_srpm() {
     fi
     sed -i "s/VERS/${DATE}git${SHA}/g" ${TOPDIR}/SPECS/${PROJ_NAME}.spec
     sed -i "s/DATE/${DATE}/g" ${TOPDIR}/SPECS/${PROJ_NAME}.spec
+    sed -i "s/EPOCH/${Z}/g" ${TOPDIR}/SPECS/${PROJ_NAME}.spec
 
     if [[ "$PROJ_NAME" == "dci-gpgpubkey" ]]; then
         cp distributed-ci.pub ${TOPDIR}/SOURCES/
