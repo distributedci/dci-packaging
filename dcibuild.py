@@ -32,6 +32,11 @@ def run_cmd(cmd):
     return out.strip().decode("UTF-8")
 
 
+def extract_epoch():
+    "Extract the UNIX epoch of the last commit"
+    return run_cmd("git show HEAD -s --format=%ct")
+
+
 # keep this command in sync with the ones in rpmbuild.lib
 def extract_sha1():
     "Extract the sha1 of the last commit"
@@ -39,26 +44,31 @@ def extract_sha1():
 
 
 # keep these commands in sync with the ones in rpmbuild.lib
-def extract_date():
+def extract_date(epoch):
     "Extract the date of the last commit"
-    ct = run_cmd("git show HEAD -s --format=%ct")
-    return run_cmd("date --utc -d @%s +%%Y%%m%%d%%H%%M" % ct)
+    return run_cmd("date --utc -d @%s +%%Y%%m%%d%%H%%M" % epoch)
 
 
-def get_local_version():
-    "Return the version extracted from the .spec file like '0.0.1'"
+def get_local_version(epoch):
+    """Return the version extracted from the .spec file like '0.0.1'
+
+    If the version contains the EPOCH string, replace it with the given UNIX epoch."""
     spec = [f for f in os.listdir(".") if f.endswith(".spec")][0]
     with open(spec) as f:
         content = f.read()
     res = re.search(r"^Version:\s*(\S+)\s*$", content, re.I | re.M)
-    return res.group(1)
+    local_version = res.group(1)
+    if "EPOCH" in local_version:
+        return local_version.replace("EPOCH", epoch)
+    return local_version
 
 
 def get_version():
     "Return the version as computed from VERSION and git like '0.0.1.post201706261235'"
 
-    version = get_local_version()
-    date = extract_date()
+    epoch = extract_epoch()
+    date = extract_date(epoch)
+    version = get_local_version(epoch)
 
     return "%s.post%s" % (version, date)
 
@@ -66,9 +76,10 @@ def get_version():
 def get_full_version():
     "Return the full version as computed from VERSION and git like '0.0.1.post201706261235+gitc2c9c2d'"
 
-    version = get_local_version()
+    epoch = extract_epoch()
+    version = get_local_version(epoch)
     sha1 = extract_sha1()
-    date = extract_date()
+    date = extract_date(epoch)
 
     return "%s.post%s+git%s" % (version, date, sha1)
 
