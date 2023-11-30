@@ -100,13 +100,15 @@ function generate_srpm() {
         fi
     else
         VERS=$(rpmspec -q --qf "%{version}\n" ${TOPDIR}/SPECS/${PROJ_NAME}.spec|head -n1 2>/dev/null)
-        VERS=$(echo $VERS | sed -e "s/EPOCH/${Z}/g" -e "s/VERS/${DATE}git${SHA}/g")
         if [[ "$PROJ_NAME" == "dci-doc" ]]; then
+            DATE=$(date --utc +%Y%m%d%H%M)
+            VERS=$(echo $VERS | sed -e "s/EPOCH/${Z}/g" -e "s/VERS/${DATE}git${SHA}/g")
             ./build.sh
             cp -r docs ${PROJ_NAME}-${VERS}
             tar -czvf ${PROJ_NAME}-${VERS}.tar.gz ${PROJ_NAME}-${VERS}
             mv ${PROJ_NAME}-${VERS}.tar.gz ${TOPDIR}/SOURCES/
         else
+            VERS=$(echo $VERS | sed -e "s/EPOCH/${Z}/g" -e "s/VERS/${DATE}git${SHA}/g")
             git archive HEAD --format=tgz --output=${TOPDIR}/SOURCES/${PROJ_NAME}-${VERS}.tar.gz
         fi
     fi
