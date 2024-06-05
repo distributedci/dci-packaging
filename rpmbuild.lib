@@ -141,11 +141,13 @@ setup_additional_repos() {
             "epel-7-x86_64")
                 MOCKOPTS+=" --enablerepo dci-extras"
                 MOCKOPTS+=" --enablerepo centos-openstack-rocky"
+                sudo dnf -y install crypto-policies crypto-policies-script
                 sudo update-crypto-policies --set DEFAULT:SHA1
                 ;;
             "epel-8-x86_64")
                 MOCKOPTS+=" --enablerepo dci-extras"
                 MOCKOPTS+=" --enablerepo centos-openstack-ussuri"
+                sudo dnf -y install crypto-policies crypto-policies-script
                 sudo update-crypto-policies --set DEFAULT:SHA1
                 ;;
             "epel-9-x86_64")
