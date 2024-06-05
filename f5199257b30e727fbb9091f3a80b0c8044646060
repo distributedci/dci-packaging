@@ -1,0 +1,9 @@
+Workflow+1: François Charlier <francois.charlier@redhat.com>
+Code-Review+2: François Charlier <francois.charlier@redhat.com>
+Code-Review+2: Guillaume Vincent <gvincent@redhat.com>
+Verified+2: Zuul CI <zuul@softwarefactory-project.io>
+Submitted-by: Zuul CI <zuul@softwarefactory-project.io>
+Submitted-at: Wed, 05 Jun 2024 15:10:50 +0000
+Reviewed-on: https://softwarefactory-project.io/r/c/dci-packaging/+/31649
+Project: dci-packaging
+Branch: refs/heads/master
