@@ -8,6 +8,12 @@ TOPDIR=$(mktemp -d)
 mkdir ${TOPDIR}/SPECS ${TOPDIR}/SOURCES ${TOPDIR}/SRPMS
 trap cleanup 0
 
+function replace_mirror_with_vault_on_el8(){
+    if [[ "$arch" == "epel-8-x86_64" ]]; then
+        sudo sed -i -e '/mirrorlist/d' -e 's/^#baseurl/baseurl/' -e 's/mirror.centos/vault.centos/' /etc/mock/templates/centos-stream-8.tpl
+    fi
+}
+
 function set_rdo_cloud_mirror() {
     cfg_file=$1
 

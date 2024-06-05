@@ -32,6 +32,7 @@ basedir=$PWD
 
 MOCKOPTS="-r ${HOME}/.mock/${arch}-with-extras.cfg --no-bootstrap-chroot"
 
+replace_mirror_with_vault_on_el8
 generate_mock_profile
 setup_build
 mock $MOCKOPTS --init
