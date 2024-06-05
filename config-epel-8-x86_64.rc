@@ -22,16 +22,16 @@ enabled=0
 
 [centos-openstack-ussuri]
 name=CentOS-$releasever - OpenStack ussuri
-#baseurl=http://mirror.centos.org/centos/8-stream/cloud/$basearch/openstack-ussuri/
-mirrorlist=http://mirrorlist.centos.org/?release=8-stream&arch=$basearch&repo=cloud-openstack-ussuri
+baseurl=http://vault.centos.org/$contentdir/$releasever/cloud/$basearch/openstack-ussuri/
+#mirrorlist=http://mirrorlist.centos.org/?release=8-stream&arch=$basearch&repo=cloud-openstack-ussuri
 gpgcheck=1
 enabled=0
 gpgkey=https://raw.githubusercontent.com/rdo-infra/rdo-release/ussuri-rdo/RPM-GPG-KEY-CentOS-SIG-Cloud
 
 [centos-ansible-29]
 name=CentOS Configmanagement SIG - ansible-29
-mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=configmanagement-ansible-29
-#baseurl=http://mirror.centos.org/$contentdir/$releasever/configmanagement/$basearch/ansible-29/
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=configmanagement-ansible-29
+baseurl=http://vault.centos.org/$contentdir/$releasever/configmanagement/$basearch/ansible-29/
 gpgcheck=0
 enabled=1
 """
