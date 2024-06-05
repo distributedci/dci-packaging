@@ -14,13 +14,6 @@ function replace_mirror_with_vault_on_el8(){
     fi
 }
 
-function set_rdo_cloud_mirror() {
-    cfg_file=$1
-
-    sed -i "s#mirrorlist=http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os#baseurl=http://${RDO_CLOUD_MIRROR}/centos/7/os/x86_64/#g" $cfg_file
-    sed -i "s#mirrorlist=http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=updates#baseurl=http://${RDO_CLOUD_MIRROR}/centos/7/updates/x86_64/#g" $cfg_file
-}
-
 function generate_mock_profile() {
     local cfg
     cfg=${HOME}/.mock/${arch}-with-extras.cfg
