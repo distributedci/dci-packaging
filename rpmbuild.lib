@@ -82,7 +82,7 @@ function generate_srpm() {
         if [[ "$arch" == "epel-9-x86_64" ]]; then
             PYTHON_INTERPRETERS="python3 python3-devel"
         else
-            PYTHON_INTERPRETERS="python2 python2-devel python2-setuptools python36 python36-devel"
+            PYTHON_INTERPRETERS="python2 python2-devel python2-setuptools python36 python36-devel python3-Cython"
         fi
         mock $MOCKOPTS --install $PYTHON_INTERPRETERS git-core
         if [[ "$arch" == "epel-7-x86_64" ]]; then
