@@ -13,9 +13,9 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-"""Utility functions used by setup.py in other DCI projects
-"""
+"""Utility functions used by setup.py in other DCI projects"""
 
+import datetime
 import os
 import re
 import subprocess
@@ -34,19 +34,15 @@ def run_cmd(cmd):
 
 def extract_epoch():
     "Extract the UNIX epoch of the last commit"
-    return run_cmd("git show HEAD -s --format=%ct")
-
-
-# keep this command in sync with the ones in rpmbuild.lib
-def extract_sha1():
-    "Extract the sha1 of the last commit"
-    return run_cmd("git rev-parse --short=8 HEAD")
+    return int(run_cmd("git show HEAD -s --format=%ct"))
 
 
 # keep these commands in sync with the ones in rpmbuild.lib
 def extract_date(epoch):
     "Extract the date of the last commit"
-    return run_cmd("date --utc -d @%s +%%Y%%m%%d%%H%%M" % epoch)
+    return datetime.datetime.fromtimestamp(epoch, datetime.timezone.utc).strftime(
+        "%Y%m%d%H%M"
+    )
 
 
 def get_local_version(epoch):
@@ -59,7 +55,7 @@ def get_local_version(epoch):
     res = re.search(r"^Version:\s*(\S+)\s*$", content, re.I | re.M)
     local_version = res.group(1)
     if "EPOCH" in local_version:
-        return local_version.replace("EPOCH", epoch)
+        return local_version.replace("EPOCH", str(epoch))
     return local_version
 
 
@@ -71,6 +67,22 @@ def get_version():
     version = get_local_version(epoch)
 
     return "%s.post%s" % (version, date)
+
+
+def write_version(module):
+    version = get_version()
+
+    with open(os.path.join(module, "__init__.py"), "w") as f:
+        f.write("__version__ = '%s'\n" % version)
+
+
+### Remove after me after all projects contain pyproject.toml
+
+
+# keep this command in sync with the ones in rpmbuild.lib
+def extract_sha1():
+    "Extract the sha1 of the last commit"
+    return run_cmd("git rev-parse --short=8 HEAD")
 
 
 def get_full_version():
