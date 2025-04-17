@@ -18,6 +18,24 @@
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5914c17_c3aad115",
+        "filename": "Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 28
+      },
+      "writtenOn": "2025-04-17T11:08:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97b25716_6263e2ef",
+      "revId": "8e336fc857e46e76c563fa09f106e824b6fd6449",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "172cd0a1_5534aa7f",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-04-16T17:21:14Z",
       "side": 1,
       "message": "I think if you remove this validation then s3fs would fail if these aren\u0027t set, that way you leave the validation the underlying boto/s3 lib e.g. AWS_PROFILE validation and etc",
+      "revId": "8e336fc857e46e76c563fa09f106e824b6fd6449",
+      "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8930a4ad_c6c4c47a",
+        "filename": "createrepo_s3fs.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 28
+      },
+      "writtenOn": "2025-04-17T11:08:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "172cd0a1_5534aa7f",
       "revId": "8e336fc857e46e76c563fa09f106e824b6fd6449",
       "serverId": "6c1dc8ef-8b94-40e4-bd83-c2359d45ecc0"
     }
