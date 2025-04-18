@@ -8,7 +8,7 @@ fi
 test -d "${AWS_S3_PACKAGES_MOUNT}" || mkdir -p "${AWS_S3_PACKAGES_MOUNT}"
 
 s3fs "${AWS_S3_PACKAGES_BUCKET}" "${AWS_S3_PACKAGES_MOUNT}"
-for REPO in "${AWS_S3_PACKAGES_MOUNT}/repos/current/el/*/*"; do
+for REPO in "${AWS_S3_PACKAGES_MOUNT}"/repos/current/el/*/*; do
   echo ".:[ Processing ${REPO} ]:."
   repomanage --old --keep 2 "${REPO}" | while read OLDRPM; do
     rm -vf "${OLDRPM}"
