@@ -34,12 +34,6 @@ baseurl=http://vault.centos.org/$contentdir/$releasever/configmanagement/$basear
 gpgcheck=0
 enabled=1
 
-[nodesource-nodejs]
-name=Node.js Packages for Linux RPM based distros
-baseurl=https://rpm.nodesource.com/pub_22.x/nodistro/nodejs/$basearch
-gpgcheck=1
-enabled=1
-gpgkey=https://rpm.nodesource.com/gpgkey/ns-operations-public.key
 """
 '
 
@@ -50,7 +44,7 @@ config_opts["files"]["etc/hosts"] = """
 """
 config_opts["nosync_force"] = True
 config_opts["module_setup_commands"] = [
-    ("install", "nodejs:18/common")
+    ("install", "nodejs:22/common")
 ]
 '
 
