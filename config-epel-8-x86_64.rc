@@ -11,8 +11,8 @@ config_opts["dnf.conf"] += """
 name=Distributed CI - CentOS 8
 baseurl=https://packages.distributed-ci.io/repos/current/el/8/x86_64/
 gpgcheck=0
-gpgkey=https://packages.distributed-ci.io/RPM-GPG-KEY-DCI-2024
 enabled=1
+gpgkey=https://packages.distributed-ci.io/RPM-GPG-KEY-DCI-2024
 
 [dci-extras]
 name=Distributed CI - Extras - CentOS 8
@@ -23,7 +23,6 @@ enabled=0
 [centos-openstack-ussuri]
 name=CentOS-$releasever - OpenStack ussuri
 baseurl=http://vault.centos.org/$contentdir/$releasever/cloud/$basearch/openstack-ussuri/
-#mirrorlist=http://mirrorlist.centos.org/?release=8-stream&arch=$basearch&repo=cloud-openstack-ussuri
 gpgcheck=1
 enabled=0
 gpgkey=https://raw.githubusercontent.com/rdo-infra/rdo-release/ussuri-rdo/RPM-GPG-KEY-CentOS-SIG-Cloud
@@ -34,6 +33,13 @@ name=CentOS Configmanagement SIG - ansible-29
 baseurl=http://vault.centos.org/$contentdir/$releasever/configmanagement/$basearch/ansible-29/
 gpgcheck=0
 enabled=1
+
+[nodesource-nodejs]
+name=Node.js Packages for Linux RPM based distros
+baseurl=https://rpm.nodesource.com/pub_22.x/nodistro/nodejs/$basearch
+gpgcheck=1
+enabled=1
+gpgkey=https://rpm.nodesource.com/gpgkey/ns-operations-public.key
 """
 '
 

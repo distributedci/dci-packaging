@@ -11,8 +11,8 @@ config_opts["dnf.conf"] += """
 name=Distributed CI - CentOS 9
 baseurl=https://packages.distributed-ci.io/repos/current/el/9/x86_64/
 gpgcheck=0
-gpgkey=https://packages.distributed-ci.io/RPM-GPG-KEY-DCI-2024
 enabled=1
+gpgkey=https://packages.distributed-ci.io/RPM-GPG-KEY-DCI-2024
 
 [dci-extras]
 name=Distributed CI - Extras - CentOS 9
@@ -23,10 +23,16 @@ enabled=0
 [centos-openstack-yoga]
 name=CentOS-$releasever - OpenStack yoga
 baseurl=http://mirror.stream.centos.org/SIGs/9-stream/cloud/x86_64/openstack-yoga/
-#mirrorlist=http://mirrorlist.centos.org/?release=9-stream&arch=$basearch&repo=cloud-openstack-yoga
 gpgcheck=1
 enabled=0
 gpgkey=https://raw.githubusercontent.com/rdo-infra/rdo-release/yoga-rdo/RPM-GPG-KEY-CentOS-SIG-Cloud
+
+[nodesource-nodejs]
+name=Node.js Packages for Linux RPM based distros
+baseurl=https://rpm.nodesource.com/pub_22.x/nodistro/nodejs/$basearch
+gpgcheck=1
+enabled=1
+gpgkey=https://rpm.nodesource.com/gpgkey/ns-operations-public.key
 """
 '
 
