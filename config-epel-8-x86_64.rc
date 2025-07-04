@@ -49,9 +49,6 @@ config_opts["files"]["etc/hosts"] = """
 127.0.0.1 pypi.python.org
 """
 config_opts["nosync_force"] = True
-config_opts["module_setup_commands"] = [
-    ("install", "nodejs:18/common")
-]
 '
 
 # Project specific settings. Needs to be overrided
