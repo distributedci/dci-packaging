@@ -115,10 +115,6 @@ function generate_srpm() {
     sed -i "s/DATE/${DATE}/g" ${TOPDIR}/SPECS/${PROJ_NAME}.spec
     sed -i "s/EPOCH/${Z}/g" ${TOPDIR}/SPECS/${PROJ_NAME}.spec
 
-    if [[ "$PROJ_NAME" == "dci-gpgpubkey" ]]; then
-        cp distributed-ci.pub ${TOPDIR}/SOURCES/
-    fi
-
     SOURCES=""
     for source in ${TOPDIR}/SOURCES/*; do
         SOURCES+=" --sources=$source"
