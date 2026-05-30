@@ -3,7 +3,7 @@ set -eux
 
 DCI_PKG_DIR=$(cd $(dirname $0); pwd)
 
-source ./rpmbuild.lib
+source ${DCI_PKG_DIR}/rpmbuild.lib
 
 if [[ "$#" -lt 1 ]]; then
     echo "Usage: ./build_rpm.sh <PATH_TO_PROJ> [<ARCH> [<PATH_TO_REPO>]]"
